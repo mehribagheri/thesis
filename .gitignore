@@ -1,0 +1,12 @@
+*.aux
+*.bbl
+*.blg
+*.log
+tex/*.out
+*.pdf
+*.gz
+*.toc
+*.idea
+*.pyc
+*__pychase__*
+*~
