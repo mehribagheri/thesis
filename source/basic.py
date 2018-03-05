@@ -17,85 +17,45 @@ def read_graph_from_file(filename, zero_based = False):
 G = read_graph_from_file("myciel5.col")
 
 
-# def get_sample_1():
-#     G = nx.Graph()
-#
-#     d = []
-#     v = []
+def get_sample_1():
+    G = nx.Graph()
 
-'''
-    Node_number = 9
-
-    Matrix = np.zeros((Node_number,Node_number))
-
-    G.add_edge(0,1)
-    Matrix[0][1] = 1
-    Matrix[1][0] = 1
-
-    G.add_edge(0,2)
-    Matrix[0][2] = 1
-    Matrix[2][0] = 1
+    G.add_edge(1,2)
 
     G.add_edge(1,3)
-    Matrix[1][3] = 1
-    Matrix[3][1] = 1
-
-    G.add_edge(0,4)
-    Matrix[0][4] = 1
-    Matrix[4][0] = 1
-
-    G.add_edge(1,5)
-    Matrix[1][5] = 1
-    Matrix[5][1] = 1
 
     G.add_edge(2,4)
-    Matrix[2][4] = 1
-    Matrix[4][2] = 1
-
-
-
-
-    G.add_edge(3,2)
-    Matrix[3][2] = 1
-    Matrix[2][3] = 1
-
-    G.add_edge(2,5)
-    Matrix[2][5] = 1
-    Matrix[2][5] = 1
-
-    G.add_edge(0,3)
-    Matrix[0][3] = 1
-    Matrix[3][0] = 1
-
-    G.add_edge(3,4)
-    Matrix[3][4] = 1
-    Matrix[4][3] = 1
-
+ 
+    G.add_edge(1,5)
+ 
+    G.add_edge(2,6)
+ 
     G.add_edge(3,5)
-    Matrix[3][5] = 1
-    Matrix[5][3] = 1
+ 
+    G.add_edge(4,3)
 
-    G.add_edge(6,1)
-    Matrix[6][1] = 1
-    Matrix[1][6] = 1
+    G.add_edge(3,6)
+ 
+    G.add_edge(1,4)
 
+    G.add_edge(4,5)
+
+    G.add_edge(4,6)
     G.add_edge(7,2)
-    Matrix[7][2] = 1
-    Matrix[2][7] = 1
-
-    G.add_edge(8,2)
-    Matrix[8][2] = 1
-    Matrix[2][8] = 1
-
+ 
     G.add_edge(8,3)
-    Matrix[8][3] = 1
-    Matrix[3][8] = 1
+
+    G.add_edge(9,3)
+ 
+    G.add_edge(9,4)
+
     return G
+
+
 
 
 def get_sample_2():
     G = nx.Graph()
-    Node_number = 10
 
     G.add_edge(1,2)
     G.add_edge(1,5)
@@ -114,4 +74,4 @@ def get_sample_2():
     G.add_edge(8,10)
 
     return G
-'''
+#G = get_sample_2()

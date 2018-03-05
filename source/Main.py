@@ -6,7 +6,7 @@ import basic
 
 
 from networkx.algorithms.approximation import min_weighted_vertex_cover
-e = 3
+e =7
 
 #def findsubsets(S,k):
 #    return set(itertools.combinations(S, k))
@@ -167,12 +167,12 @@ d, order = modified_greedy_coloring.greedy_color(G, clique, strategy="DSATUR")
 start_time = time.time()
 coloring =  exact_dsatur(G, clique, order, d)
 end_time = time.time()
-print ("elapsed time for coloring before kernelization=", (end_time - start_time) / 60)
+print ("elapsed time for coloring before kernelization=", (end_time - start_time) * 1000)
 print (coloring)
 print  (max(coloring.items(), key=lambda k: k[1])[1])
 
 
-
+print ( "G ", G.edges())
 
 
 
@@ -273,14 +273,15 @@ for out_item in outside_nodes_approx:
         G.remove_node(out_item)
 
 end_time = time.time()
-print ("elapsed time for kernelization =", (end_time - start_time) / 60)
+print ("elapsed time for kernelization =", (end_time - start_time) * 1000 )
 
 print("resulted node number ", G.number_of_nodes())
 
 G1 = nx.Graph()
 G1 = nx.convert_node_labels_to_integers(G,1)
 
-print ("G1 ",G1.nodes)
+print ( "G1 ", G1.number_of_nodes())
+print (G1.edges)
 #map(lambda G.nodes: G.nodes, range(G.number_of_nodes()))
 #y = []
 
@@ -302,7 +303,7 @@ d, order = modified_greedy_coloring.greedy_color(G1, clique, strategy="DSATUR")
 start_time = time.time()
 coloring =  exact_dsatur(G1, clique, order, d)
 end_time = time.time()
-print ("elapsed time for coloring after=", (end_time - start_time) / 60)
+print ("elapsed time for coloring after=", (end_time - start_time) * 1000 )
 print (coloring)
 print  (max(coloring.items(), key=lambda k: k[1])[1])
 #nx.draw(max_clique)

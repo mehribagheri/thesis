@@ -7,7 +7,7 @@
 
 \usepackage[nottoc]{tocbibind}
 
-
+\usepackage{rotating}
 
 \usepackage[square,numbers]{natbib}
 \bibliographystyle{abbrvnat}
@@ -79,8 +79,7 @@ The Master Thesis was not used in the same or in a similar version to achieve
 an academic grading or is being published elsewhere.
 
 %\newline
-
-\date{Aachen, }\today}}
+	\end{Huge}\date{Aachen, }\today}}
 
 \begin{flushright}
 \begin{tabular}{rrr}
@@ -566,7 +565,7 @@ the algorithm and correctness proof can be generalized to $q$-COLORING. \cite{kr
 
 by substitution $3$ with $q$ in recent algorithm:
 
-\begin{theorem}
+\begin{theorem}{\label{main theorem}}
 $G$ is $q$-colorable iff $G'$ is $q$-colorable. Runtime for the algorithm
 is $\mathcal{O}(min|X|^q)$.
 \end{theorem}
@@ -1049,80 +1048,100 @@ kernels that ease coloring and reduce the run time for coloring as well. It can
 help specially with an exact coloring algorithm (like DSATUR-based Branch-$\&$-Bound) because of its too long running time.
 
 In the table \ref{tab:1}, are depicted results of running the program for some instances
-from DIMACS instances\cite{instance}. In this table, $\tau(G)$ is the vertex cover number, $\chi$ is the chromatic number of the graph before kernelization, and $\chi'$ is the chromatic number of the kernel:
+from DIMACS instances\cite{instance}. In this table at the first column, there is file name of instance with its chromatic number in parentheses in front of it. Second and third columns contain the number of vertices and edges respectively. $\tau(G)$ is the vertex cover number in column fifth, $q$ is an integer from the theorem \ref{main theorem}. (we check if we can color graph $G$ with $q$ colors.) $\chi$ is the chromatic number of the graph obtained by the program before kernelization, and $\chi'$ is the chromatic number of the kernel. $|V'|$ is the number of vertices of the kernel. There are also 3 columns for measuring time: the time of coloring before kernelization shows time needed for coloring the original graph, the time needed for kernelization (1) and the time needed for coloring the kernel (2). The last column sums (1) and (2) and we can compare this column with time of coloring before kernelization.
+
+As we can see in the table, in most of the graphs, kernelization reduce the size and overall time needed for coloring very well; but in some graphs it is not good enough.
+
+We analyze here the instance studied in the chapter \ref{section} (myciel3.col):
+     
+As we see in the first column, we know already that this graph has chromatic number equal to $4$, $11$ vertices and $20$ edges. We compute the vertex cover with AMPL and CPLEX, the size of vertex cover is $6$. we color the graph with exact algorithm (DSATUR-based Branch and Bound), the chromatic number is obtained equal to $4$ and the time needed for this coloration is about $2.49$ miliseconds.  In this table, we checked two amounts for $q$: 
+\begin{itemize}
+\item In first line $q = 3$ and we check if we can color the graph with $3$ colors. As we saw in the chapter \ref{section} in this case, the kernel has $11$ vertices like as the original graph and its time is $0.39$. After kernelization, we run the exact algorithm for coloring for the kernel. In this case chromatic number is again $4$ and the coloring time is $2.62$. 
+
+\item In second line $q = 4$, We check if we can color the graph with $4$ colors. We discussed this case in the chapter \ref{section} too. In this case, the kernel has just $6$ vertices and time of kernelization $0.31$, the chromatic numer of the kernel is $3$ that means we can color the graph with $3$ and of course $4$ colors. In this case the overall time needed for kernelization and coloring after that is more less than the time needed for coloring the original graph.
+\end{itemize}
 
 \newpage
 
 
 \begin{table}[H]
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-{\tiny graph filename($\chi$)} & {\tiny number of vertices} & {\tiny number of edges} & {\tiny $\tau(G)$} & {\tiny $q$} & {\tiny $\chi$} & {\tiny vertices of the kernel} & {\tiny $\chi'$}\\
+{\tiny \begin{turn}{90} graph filename($\chi$)\end{turn}} & {\tiny  $|V|$} & {\tiny $|E|$} & {\tiny $\tau(G)$} & {\tiny $q$} & {\tiny $\chi$} & {\tiny \begin{turn}{90} \shortstack{coloring time \\before kernelization} \end{turn}} & {\tiny $|V'|$} & {\tiny \begin{turn}{90} \shortstack{time of \\ kernelization (1)}\end{turn}} & {\tiny $\chi'$} &{\tiny \begin{turn}{90} \shortstack{coloring time \\ after kernelization} (2)\end{turn}} & {\tiny \begin{turn}{90} sum of (1) and (2)\end{turn}}\\
 \hline
-{\small myciel3.col(4)} & {\small $11$} & {\small $20$} & {\small $6$} & {\small $3$} & {\small $4$} & {\small $11$} & {\small $4$}\\
+{\small myciel3.col(4)} & {\small $11$} & {\small $20$} & {\small $6$} & {\small $3$} & {\small $4$} & {\small $2.49$} & {\small $11$} & {\small $0.39$} & {\small $4$} & {\small $2.62$} & {\small $3.01$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $4$} & {\small $6$} & {\small $3$}\\
-\hline
-\hline
-{\small myciel5.col(6)} & {\small $47$} & {\small $236$} & {\small $24$} & {\small $3$} & {\small $6$} & {\small $47$} & {\small $6$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $6$} & {\small $47$} & {\small $6$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $6$} & {\small $47$} & {\small $6$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $6$} & {\small $42$} & {\small $5$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $4$} & {\small $2.61$} & {\small $6$} & {\small $0.31$} & {\small $3$} & {\small $0.07$} & {\small $0.38$}\\
 \hline
 \hline
-{\small myciel4.col(5)} & {\small $23$} & {\small $71$} & {\small $12$} & {\small $3$} & {\small $5$} & {\small $12$} & {\small $4$}\\
+{\small myciel5.col(6)} & {\small $47$} & {\small $236$} & {\small $24$} & {\small $3$} & {\small $6$} & {\small $>5h$ } & {\small $24$} & {\small $0.51$} & {\small $5$} & {\small $2982$} & {\small $2982.51$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $5$} & {\small $17$} & {\small $4$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $6$} & {\small $>5h$} & {\small $24$} & {\small $0.50$} & {\small $5$} & {\small $2874$} & {\small $2874.5$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $5$} & {\small $17$} & {\small $4$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $6$} & {\small $>5h$} & {\small $29$} & {\small $0.57$} & {\small $5$} & {\small $8715$} & {\small $8715.57$}\\
 \hline
-\hline
-{\small queen5-5.col(5)} & {\small $25$} & {\small $320$} & {\small $20$} & {\small $3$} & {\small $5$} & {\small $25$} & {\small $5$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $5$} & {\small $25$} & {\small $5$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $5$} & {\small $25$} & {\small $5$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $6$} & {\small $>5h$} & {\small $29$} & {\small $0.60$} & {\small $5$} & {\small $8713$} & {\small $8713.60$}\\
 \hline
 \hline
-{\small queen6-6.col(7)} & {\small $36$} & {\small $580$} & {\small $30$} & {\small $3$} & {\small $7$} & {\small $36$} & {\small $7$}\\
+{\small myciel4.col(5)} & {\small $23$} & {\small $71$} & {\small $12$} & {\small $3$} & {\small $5$} & {\small $8973$} & {\small $12$} & {\small $0.40$} & {\small $4$} & {\small $0.75$	} & {\small $1.15$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $7$} & {\small $36$} & {\small $7$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $5$} & {\small $8936$} & {\small $17$} & {\small $0.56$} & {\small $4$} & {\small $2.15$} & {\small $2.71$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $7$} & {\small $36$} & {\small $7$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $7$} & {\small $36$} & {\small $7$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $7$} & {\small $36$} & {\small $7$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $5$} & {\small $8836$} & {\small $17$} & {\small $0.64$} & {\small $4$} & {\small $1.60$} & {\small $2.24$}\\
 \hline
 \hline
-{\small queen7-7.col(7)} & {\small $49$} & {\small $952$} & {\small $42$} & {\small $3$} & {\small $7$} & {\small $49$} & {\small $7$}\\
+{\small queen5-5.col(5)} & {\small $25$} & {\small $320$} & {\small $20$} & {\small $3$} & {\small $5$} & {\small $0.27$} & {\small $20$} & {\small $0.33$} & {\small $4$} & {\small $0.39$} & {\small $0.72$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $7$} & {\small $49$} & {\small $7$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $5$} & {\small $0.31$} & {\small $20$} & {\small $0.34$} & {\small $4$} & {\small $0.38$} & {\small $0.72$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $7$} & {\small $49$} & {\small $7$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $7$} & {\small $49$} & {\small $7$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $7$} & {\small $49$} & {\small $7$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $5$} & {\small $0.27$} & {\small $20$} & {\small $0.33$} & {\small $4$} & {\small $0.39$} & {\small $0.72$}\\
 \hline
 \hline
-{\small mulsol.i.3.col(31)} & {\small $184$} & {\small $3916$} & {\small $98$} & {\small $6$} & {\small $31$} & {\small $149$} & {\small $31$}\\
+{\small queen6-6.col(7)} & {\small $36$} & {\small $580$} & {\small $30$} & {\small $3$} & {\small $7$} & {\small $6511$} & {\small $30$} & {\small $0.37$} & {\small $6$} & {\small $281$} & {\small $281.37$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $31$} & {\small $31$} & {\small $105$} & {\small $31$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $7$} & {\small $6487$} & {\small $30$} & {\small $0.44$} & {\small $6$} & {\small $273$} & {\small $273.44$}\\
+\hline
+%{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $7$} & {\small $6391$} & {\small $30$} & {\small $0.38$} & {\small $6$} & {\small $273$} & {\small $273.38$}\\
+%\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $7$} & {\small $6706$} & {\small $30$} & {\small $0.39$} & {\small $6$} & {\small $277$} & {\small $277.39$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $7$} & {\small $6496$} & {\small $36$} & {\small $0.37$} & {\small $6$} & {\small $272$} & {\small $272.37$}\\
 \hline
 \hline
-{\small zeroin.i.1.col(49)} & {\small $211$} & {\small $4100$} & {\small $91$} & {\small $31$} & {\small $49$} & {\small $113$} & {\small $49$}\\
+{\small queen7-7.col(7)} & {\small $49$} & {\small $952$} & {\small $42$} & {\small $3$} & {\small $7$} & {\small $2036$} & {\small $42$} & {\small $0.44$} & {\small $6$} & {\small $3299$} & {\small $3299.44$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $49$} & {\small $49$} & {\small $95$} & {\small $49$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $7$} & {\small $2037$} & {\small $42$} & {\small $0.37$} & {\small $6$} & {\small $3246$} & {\small $3246.37$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $7$} & {\small $2053$} & {\small $42$} & {\small $0.36$} & {\small $6$} & {\small $3158$} & {\small $3158.36$}\\
+\hline
+%{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $7$} & {\small $2008$} & {\small $42$} & {\small $0.41$} & {\small $6$} & {\small $3210$} & {\small $3210.41$}\\
+%\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $7$} & {\small $2032$} & {\small $42$} & {\small $0.37$} & {\small $6$} & {\small $3238$} & {\small $3238.37$}\\
+\hline
+\hline
+{\small mulsol.i.3.col(31)} & {\small $184$} & {\small $3916$} & {\small $98$} & {\small $6$} & {\small $31$} & {\small $0.07$} & {\small $98$} & {\small $1.33$} & {\small $30$} & {\small $0.04$} & {\small $1.37$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $31$} & {\small $31$} & {\small $0.08$} & {\small $102$} & {\small $2.12$} & {\small $31$} & {\small $0.05$} & {\small $2.17$}\\
+\hline
+\hline
+{\small zeroin.i.1.col(49)} & {\small $211$} & {\small $4100$} & {\small $91$} & {\small $49$} & {\small $49$} & {\small $0.08$} & {\small $93$} & {\small $1.67$} & {\small $48$} & {\small $0.04$} & {\small $1.71$}\\
+\hline
+\hline
+{\small anna.col(11)} & {\small $138$} & {\small $986$} & {\small $58$} & {\small $11$} & {\small $11$} & {\small $0.06$} & {\small $59$} & {\small $0.81$} & {\small $10$} & {\small $0.02$} & {\small $0.83$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $3$} & {\small $11$} & {\small $0.07$} & {\small $74$} & {\small $1.82$} & {\small $10$} & {\small $0.03$} & {\small $1.85$}\\
+\hline
+\hline
+{\small fpsol2.i.2.col(30)} & {\small $451$} & {\small $8691$} & {\small $190$} & {\small $3$} & {\small $30$} & {\small $0.17$} & {\small $190$} & {\small $3.58$} & {\small $29$} & {\small $0.073$} & {\small $3.653$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $30$} & {\small $30$} & {\small $0.19$} & {\small $198$} & {\small $5.35$} & {\small $29$} & {\small $0.07$} & {\small $5.42$}\\
 \hline
 \end{tabular}
 \end{center}
  \caption{\small Some results of running the code} \label{tab:1} }}
 \end{table}
+
 
 \newpage
 
@@ -1139,21 +1158,21 @@ As we expected, it can be seen in the table that the first min vertex cover and 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-{\tiny graph filename($\chi$)} & {\tiny number of vertices} & {\tiny number of edges} & {\tiny $\tau(G)$} & {\tiny $q$} & {\tiny vertices of the} & {\tiny $\tau'(G)$} & {\tiny vertices of the}\\
- &  &  &  &  & {\tiny kernel with $\tau(G)$} &  & {\tiny kernel with $\tau'(G)$}\\
+{\tiny graph filename($\chi$)} & {\tiny number of vertices} & {\tiny number of edges} & {\tiny $\tau(G)$} & {\tiny $q$} & {\tiny \shortstack{vertices of the\\ kernel with $\tau(G)$}} & {\tiny $\tau'(G)$} & {\tiny \shortstack{vertices of the\\ kernel with $\tau'(G)$}}\\
+
 \hline
 {\small myciel3.col(4)} & {\small $11$} & {\small $20$} & {\small $6$} & {\small $3$} & {\small $11$} & {\small $10$} & {\small $11$}\\
 \hline
 {\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $6$} & {\small $10$} & {\small $10$}\\
 \hline
 \hline
-{\small myciel5.col(6)} & {\small $47$} & {\small $236$} & {\small $24$} & {\small $3$} & {\small $47$} & {\small $$} & {\small $$}\\
+{\small myciel5.col(6)} & {\small $47$} & {\small $236$} & {\small $24$} & {\small $3$} & {\small $24$} & {\small $38$} & {\small $38$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $47$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $47$} & {\small $"$} & {\small $38$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $47$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $47$} & {\small $"$} & {\small $43$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $42$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $42$} & {\small $"$} & {\small $38$}\\
 \hline
 \hline
 {\small myciel4.col(5)} & {\small $23$} & {\small $71$} & {\small $12$} & {\small $3$} & {\small $12$} & {\small $18$} & {\small $18$}\\
@@ -1163,43 +1182,51 @@ As we expected, it can be seen in the table that the first min vertex cover and 
 {\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $17$} & {\small $"$} & {\small $18$}\\
 \hline
 \hline
-{\small queen5-5.col(5)} & {\small $25$} & {\small $320$} & {\small $20$} & {\small $3$} & {\small $25$} & {\small $$} & {\small $$}\\
+{\small queen5-5.col(5)} & {\small $25$} & {\small $320$} & {\small $20$} & {\small $3$} & {\small $25$} & {\small $24$} & {\small $24$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $25$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $25$} & {\small $"$} & {\small $24$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $25$} & {\small $$} & {\small $$}\\
-\hline
-\hline
-{\small queen6-6.col(7)} & {\small $36$} & {\small $580$} & {\small $30$} & {\small $3$} & {\small $36$} & {\small $$} & {\small $$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $36$} & {\small $$} & {\small $$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $36$} & {\small $$} & {\small $$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $36$} & {\small $$} & {\small $$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $36$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $25$} & {\small $"$} & {\small $24$}\\
 \hline
 \hline
-{\small queen7-7.col(7)} & {\small $49$} & {\small $952$} & {\small $42$} & {\small $3$} & {\small $49$} & {\small $$} & {\small $$}\\
+{\small queen6-6.col(7)} & {\small $36$} & {\small $580$} & {\small $30$} & {\small $3$} & {\small $36$} & {\small $34$} & {\small $34$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $49$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $36$} & {\small $"$} & {\small $34$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $49$} & {\small $$} & {\small $$}\\
+%{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $36$} & {\small $"$} & {\small $34$}\\
+%\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $36$} & {\small $"$} & {\small $34$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $49$} & {\small $$} & {\small $$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $49$} & {\small $$} & {\small $$}\\
-\hline
-\hline
-{\small mulsol.i.3.col(31)} & {\small $184$} & {\small $3916$} & {\small $98$} & {\small $6$} & {\small $149$} & {\small $$} & {\small $$}\\
-\hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $31$} & {\small $105$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $36$} & {\small $"$} & {\small $34$}\\
 \hline
 \hline
-{\small zeroin.i.1.col(49)} & {\small $211$} & {\small $4100$} & {\small $91$} & {\small $31$} & {\small $113$} & {\small $$} & {\small $$}\\
+{\small queen7-7.col(7)} & {\small $49$} & {\small $952$} & {\small $42$} & {\small $3$} & {\small $49$} & {\small $48$} & {\small $48$}\\
 \hline
-{\small "} & {\small "} & {\small "} & {\small "} & {\small $49$} & {\small $95$} & {\small $$} & {\small $$}\\
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+\hline
+%{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+%\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+\hline
+\hline
+{\small mulsol.i.3.col(31)} & {\small $184$} & {\small $3916$} & {\small $98$} & {\small $6$} & {\small $149$} & {\small $126$} & {\small $126$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $31$} & {\small $105$} & {\small $126$} & {\small $128$}\\
+\hline
+\hline
+{\small zeroin.i.1.col(49)} & {\small $211$} & {\small $4100$} & {\small $91$} & {\small $49$} & {\small $95$} & {\small $104$} & {\small $105$}\\
+\hline
+\hline
+{\small anna.col(11)} & {\small $138$} & {\small $986$} & {\small $58$} & {\small $11$} & {\small $59$} & {\small $96$} & {\small $97$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $3$} & {\small $74$} & {\small $96$} & {\small $102$} \\
+\hline
+\hline
+{\small fpsol2.i.2.col(30)} & {\small $451$} & {\small $8691$} & {\small $190$} & {\small $3$} & {\small $190$} & {\small $260$} & {\small $260$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $30$} & {\small $198$} & {\small $260$} & {\small $262$}\\
 \hline
 \end{tabular}
 \end{center}

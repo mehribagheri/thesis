@@ -44,7 +44,7 @@ print ("Q2= ",Q2)
 
 
 
-file = open('var.dat', 'w')
+file = open('ver.dat', 'w')
 file.write('set Q := ' )
 file.write('\n')
 
