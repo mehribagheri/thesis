@@ -14,7 +14,7 @@ def read_graph_from_file(filename, zero_based = False):
         G.add_node(x)
     return G
 
-G = read_graph_from_file("myciel5.col")
+G = read_graph_from_file("queen6_6.col")
 
 
 def get_sample_1():

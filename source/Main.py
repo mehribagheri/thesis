@@ -260,7 +260,7 @@ X =[]
 
 start_time = time.time()
 
-for out_item in outside_nodes_approx:
+for out_item in outside_nodes:
     if G[out_item] != []:
 
         if len(G[out_item]) == e and G[out_item] not in flag_list:
@@ -268,7 +268,7 @@ for out_item in outside_nodes_approx:
             X.append(out_item)
             flag_list.append(G[out_item])
 
-for out_item in outside_nodes_approx:
+for out_item in outside_nodes:
     if out_item not in X:
         G.remove_node(out_item)
 
