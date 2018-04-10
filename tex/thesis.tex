@@ -12,7 +12,7 @@
 \usepackage[square,numbers]{natbib}
 \bibliographystyle{abbrvnat}
 
-
+\usepackage{graphicx}
 
 \usepackage{float}
 \usepackage{blindtext}
@@ -987,7 +987,6 @@ $k$-COLORING for $k \geq 3$ is $NP$-complete. \cite{karp}
 \vspace{-1cm}
 \begin{proof}
 \vspace{-0.5cm}
-Sketch of proof:
 
 To prove this theorem, it is enough to prove it for $k = 3$; because if it could be solved in polynomial time for arbitrary $k$, then it could also be solved in polynomial time for $k=3$: L\'aszl\'o Lov\'asz has proved $k$-COLORABILITY reduces to $3$-COLORABILITY. \cite{Laszlo}
 
@@ -999,14 +998,242 @@ As discussed in section \ref{comp}, we need to prove both of these:
 
 A given $3$-coloring can be easily validated in linear time by any means of traversing the graph (DFS or BFS) and keeping track of end point colors, hence $3$-COLORING is in $NP$.  
 
-For prove of $NP$-hardness, a reduction from $3$-SAT \cite{karp} is used. In order to reduction, we need to construct a graph $G_\varphi$ correspondence to a $3$-CNF formula $\varphi$ with $n$ variables $t_1, t_2,\dots, t_n$ and $m$ clauses. We should prove $G_\varphi$ is $3$-colorable iff $\varphi$ is satisfiable.
+For prove of $NP$-hardness, a reduction from $3$-SAT \cite{karp} is used. In order to reduction, we need to construct a graph $G_\varphi$ correspondence to a $3$-CNF formula $\varphi$ with $n$ literals $t_1, t_2,\dots, t_n$ and $m$ clauses $C_1, C_2, \dots, C_m$. We should prove $G_\varphi$ is $3$-colorable iff $\varphi$ is satisfiable. The graph will contain two vertices $v_i$ and $\bar{v_i}$ for each literal $t_i$. We add three vertices $a$, $b$ and $c$ made a triangle to the graph and connect $v_i$ and $\bar{v_i}$ to vertex $c$ for each $i$. 
 
 
-We omit the rest of the proof here.
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle,inner sep=1pt,minimum size=1mm] (v1) at (-4,-2.5) {$v_1$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv1) at (-3.5, -1.5) {$\bar{v_1}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v2) at (-3,-0.5) {$v_2$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv2) at (-2.5, 0.5) {$\bar{v_2}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v3) at (-2,1) {$v_3$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv3) at (-1, 1.5) {$\bar{v_3}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v4) at (0,1.75) {$v_4$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv4) at (1, 1.75) {$\bar{v_4}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v5) at (2,1.25) {$v_5$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv5) at (3, 0.5) {$\bar{v_5}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (vn) at (4.5,-1.5) {$v_n$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nvn) at (5, -2.5) {$\bar{v_n}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (c) at (0.5, -1.5) {$c$};
+\node[circle,inner sep=1pt,minimum size=1mm] (a) at (-0.5, -3) {$a$};
+\node[circle,inner sep=1pt,minimum size=1mm] (b) at (1.5, -3) {$b$};
+
+\draw (c)--(v1)--(nv1)--(c);
+\draw (c)--(v2)--(nv2)--(c);
+\draw (c)--(v3)--(nv3)--(c);
+\draw (c)--(v4)--(nv4)--(c);
+\draw (c)--(v5)--(nv5)--(c);
+\draw (c)--(vn)--(nvn)--(c);
+\draw (c)--(a)--(b)--(c);
+
+\draw [dash pattern={on 1pt off 3pt}](vn) --(nv5);
+\end{tikzpicture}
+\end{center}
+\vspace{1cm}
+
+If the graph $G_\varphi$ is $3$-colored, vertices $a$ and $b$ should have different colors, we will call the assigned colors to these two vertex $T$ (True) and $F$ (False) respectively. Then each pair $v_i$ and $\bar{v_i}$ should have colors $T$ and $F$ (or $F$ and $T$) respectively. We can interpret this as a truth assignment to the literals. We call the assigned color to the vertex $c$, color $N$ (Neutral). For easiness, will call the vertices $a$, $b$ and $c$ by their colors $T$, $F$ and $N$ respectively. We should expand the graph to include the clauses. We construct a small OR-gadget graph for each clause $Cj = (x \lor y\lor z)$ in $\varphi$:
+
+\begin{center}
+\begin{tikzpicture}[
+       thick,
+       acteur/.style={
+         circle,
+         fill=black,
+         thick,
+         inner sep=2pt,
+         minimum size=0.2cm
+       }
+     ] 
+\node[label=$x$,fill=gray] (x) at (-4.5,2.5) {};
+\node[label=$y$,fill=gray] (y) at (-4.5, 0.5) {};
+\node[label=below:$z$,fill=gray] (z) at (-4.5,0) {};
+\node[label=above:1,circle,fill=black,inner sep=1pt,minimum size=3mm] (1) at (-2.5, 2.5) {};
+\node[label=right:2,circle,fill=black,inner sep=1pt,minimum size=3mm] (2) at (-2.5,0.5) {};
+\node[label=$x\lor y$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, 1.5) {};
+\node[label=right:3,circle,fill=black,inner sep=1pt,minimum size=3mm] (3) at (0,1.5) {};
+\node[label=below:4,circle,fill=black,inner sep=1pt,minimum size=3mm] (4) at (0, 0) {};
+\node[label=below:$x\lor y\lor z$,fill=gray] (xyz) at (2,0.75) {};
+
+\draw (x)--(1)--(2)--(y);
+\draw (1)--(xy)--(2);
+\draw (xy)--(3)--(4)--(z);
+\draw (3)--(xyz)--(4);
+
+\end{tikzpicture}
+\end{center}
+\vspace{1cm}
+
+
+For inputs $x$, $y$ and $z$, the gadget results $(x \lor y\lor z)$:
+
+In a $3$-coloring, 
+
+\begin{itemize}
+
+\item if we color $x$, $y$, $z$ with color $F$ (false), then one of vertices $1$ and $2$ should be colored with $T$ and the other one with $N$, hence $x\lor y$ should be colored with $F$, therefore one of the vertices $3$ and $4$ should have the color $T$ and the other one color $N$. It results the color $F$ for the output $x\lor y\lor z$ as it was desired.
+
+
+\item if we color at least one of the input vertices with the color $T$, the output $x\lor y\lor z$ gets the color $T$. We don't check it here.
+\end{itemize}
+
+Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F$ and $N$ from the triangle.
+
+\begin{center}
+%\tikzset{test/.style={circle, draw=black}}
+%\begin{figure}
+
+\begin{tikzpicture}
+
+%\begin{element}[place at cordinate (0,4), scale=1]
+%\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
+\node[circle,inner sep=1pt,minimum size=1mm] (v1) at (-4,-2.5) {$v_1$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv1) at (-3.5, -1.5) {$\bar{v_1}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v2) at (-3,-0.5) {$v_2$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv2) at (-2.5, 0.5) {$\bar{v_2}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v3) at (-2,1) {$v_3$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv3) at (-1, 1.5) {$\bar{v_3}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v4) at (0,1.75) {$v_4$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv4) at (1, 1.75) {$\bar{v_4}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (v5) at (2,1.25) {$v_5$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nv5) at (3, 0.5) {$\bar{v_5}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (vn) at (4.5,-1.5) {$v_n$};
+\node[circle,inner sep=1pt,minimum size=1mm] (nvn) at (5, -2.5) {$\bar{v_n}$};
+\node[circle,inner sep=1pt,minimum size=1mm] (n) at (0.5, -1.5) {$N$};
+\node[circle,inner sep=1pt,minimum size=1mm] (t) at (-0.5, -3) {$T$};
+\node[circle,inner sep=1pt,minimum size=1mm] (f) at (1.5, -3) {$F$};
+
+\draw (n)--(v1)--(nv1)--(n);
+\draw (n)--(v2)--(nv2)--(n);
+\draw (n)--(v3)--(nv3)--(n);
+\draw (n)--(v4)--(nv4)--(n);
+\draw (n)--(v5)--(nv5)--(n);
+\draw (n)--(vn)--(nvn)--(n);
+\draw (n)--(t)--(f)--(n);
+
+
+\draw [dash pattern={on 1pt off 3pt}](vn) --(nv5);
+
+\begin{scope}[shift={(1.5,-5.5)},rotate=90,scale=0.5, every node/.style={scale=0.5}]
+
+{[
+       thick,
+       acteur/.style={
+         circle,
+         fill=black,
+         thick,
+         inner sep=2pt,
+         minimum size=0.2cm
+       }
+
+\node[label=$x_3$,fill=gray] (x) at (-4.5,-7.5) {};
+\node[label=$y_3$,fill=gray] (y) at (-4.5, -9.5) {};
+\node[label=below:$z_3$,fill=gray] (z) at (-4.5,-10) {};
+\node[label=above:1,circle,fill=black,inner sep=1pt,minimum size=3mm] (1) at (-2.5, -7.5) {};
+\node[label=right:2,circle,fill=black,inner sep=1pt,minimum size=3mm] (2) at (-2.5,-9.5) {};
+\node[label=$x_3\lor y_3$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, -8.5) {};
+\node[label=right:3,circle,fill=black,inner sep=1pt,minimum size=3mm] (3) at (0,-8.5) {};
+\node[label=below:4,circle,fill=black,inner sep=1pt,minimum size=3mm] (4) at (0, -10) {};
+\node[label=below:$x_3\lor y_3\lor z_3$,fill=gray] (xyz1) at (2,-8.75) {};
+
+\draw (x)--(1)--(2)--(y);
+\draw (1)--(xy)--(2);
+\draw (xy)--(3)--(4)--(z);
+\draw (3)--(xyz1)--(4);
+\draw [red] (f)--(xyz1)--(n);
+   
+   
+{[
+       thick,
+       acteur/.style={
+         circle,
+         fill=black,
+         thick,
+         inner sep=2pt,
+         minimum size=0.2cm
+       }
+     ] 
+\node[label=$x_2$,fill=gray] (x) at (-4.5,2.5) {};
+\node[label=$y_2$,fill=gray] (y) at (-4.5, 0.5) {};
+\node[label=below:$z_2$,fill=gray] (z) at (-4.5,0) {};
+\node[label=above:1,circle,fill=black,inner sep=1pt,minimum size=3mm] (1) at (-2.5, 2.5) {};
+\node[label=right:2,circle,fill=black,inner sep=1pt,minimum size=3mm] (2) at (-2.5,0.5) {};
+\node[label=$x_2\lor y_2$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, 1.5) {};
+\node[label=right:3,circle,fill=black,inner sep=1pt,minimum size=3mm] (3) at (0,1.5) {};
+\node[label=below:4,circle,fill=black,inner sep=1pt,minimum size=3mm] (4) at (0, 0) {};
+\node[label=below:$x_2\lor y_2\lor z_2$,fill=gray] (xyz2) at (2,0.75) {};
+
+\draw (x)--(1)--(2)--(y);
+\draw (1)--(xy)--(2);
+\draw (xy)--(3)--(4)--(z);
+\draw (3)--(xyz2)--(4);  
+\draw [red](f)--(xyz2)--(n);
+
+{[
+       thick,
+       acteur/.style={
+         circle,
+         fill=black,
+         thick,
+         inner sep=2pt,
+         minimum size=0.2cm
+       }
+     ] 
+\node[label=$x_1$,fill=gray] (x) at (-4.5,12.5) {};
+\node[label=$y_1$,fill=gray] (y) at (-4.5, 10.5) {};
+\node[label=below:$z_1$,fill=gray] (z) at (-4.5,10) {};
+\node[label=above:1,circle,fill=black,inner sep=1pt,minimum size=3mm] (1) at (-2.5, 12.5) {};
+\node[label=right:2,circle,fill=black,inner sep=1pt,minimum size=3mm] (2) at (-2.5,10.5) {};
+\node[label=$x_1\lor y_1$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, 11.5) {};
+\node[label=right:3,circle,fill=black,inner sep=1pt,minimum size=3mm] (3) at (0,11.5) {};
+\node[label=below:4,circle,fill=black,inner sep=1pt,minimum size=3mm] (4) at (0,10) {};
+\node[label=below:$x_1\lor y_1\lor z_1$,fill=gray] (xyz3) at (2,10.75) {};
+
+\draw (x)--(1)--(2)--(y);
+\draw (1)--(xy)--(2);
+\draw (xy)--(3)--(4)--(z);
+\draw (3)--(xyz3)--(4); 
+\draw [red](f)--(xyz3)--(n); 
+\end{scope}
+\draw [dash pattern={on 1pt off 1pt}] (7,-6.5)--(10,-6.5)
+\end{tikzpicture}
+%\end{element}
+%\end{tikzpicture}
+ 
+%\end{figure}
+\end{center}
+\vspace{1cm}
+
+and at last, we connect every literal from each clause in OR-gadget to its correspondence vertex $v_i$ or for negation of a literal to its correspondence vertex $\bar{v_i}$
+
+Now, the graph $G_\varphi$ is ready. We will prove that it is $3$-colorable iff $\varphi$ is satisfiable:
+
+\begin{itemize}
+\item $\varphi$ is satisfiable implies $G_\varphi$ is $3$-colorable:
+
+\begin{itemize}
+\item $\varphi$ is satisfiable, means that its all clauses are "True" and therefore every OR-gadget in $G_\varphi$ resluts $T$ color. 
+
+\item If literal $t_i$ has truth value "True", we color $v_i$ with $T$ and $\bar{v_i}$ with $F$. 
+
+Concerning the figure, the graph is $3$-colorable. 
+
+\end{itemize}
+\item $G_\varphi$ is $3$-colorable implies $\varphi$ is satisfiable.
+\begin{itemize}
+\item If $v_i$ is colored $T$ and hence $\bar{v_i}$ is colored $F$, we set $t_i$ to "True" and therefore negation of it to "False", that is a legal assignment.
+
+\item Because of $3$-colorability of the graph, output of every OR-gadget should be colored $T$ because it is connected to vertices with colors $F$ and $N$, Hence at least one of input vertices of each OR-gadget is colored $T$, then $\varphi$ is satisfiable. 
+\end{itemize}
+\end{itemize}
 
 \end{proof}
 
-DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy search. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color.
+
+DSATUR is a graph coloring algorithm created by Daniel Br\'elaz\cite{brelaz} in 1979. Algorithm DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy search. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color. 
+
+Turner \cite{turner} proved that the run time for this heuristic algorithm could be $\mathcal{O}(m \log n)$, for a graph with $n$ vertices and $m$ edges.
 
 At first, one definition is needed:
 
