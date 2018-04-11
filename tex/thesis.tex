@@ -489,7 +489,7 @@ problem : Is there any vertex cover set in $G$ with maximum size of $k$?
 \newpage
 
 \section{Kernelization}
-
+\subsection{The Definition}
 Kernelization is a method to build efficient polynomial-time algorithms, 
 in which the size of the given problem instance is reduced to an equivalent smaller instance which is called kernel. 
 
@@ -531,24 +531,31 @@ a failure exception if no such set exists. This problem is $NP$-hard.
 
 These reduction rules are used to kernelize the problem:
 
-\begin{enumerate}
-\item For a given instance $(G,k)$ of the problem, if $v$ is an isolated vertex of $G$, remove it. An isolated vertex $v$ cannot cover any edges, so $v$ is not contained in any minimal cover. The new instance is $(G - v , k)$.
+\begin{itemize}
+\item For a given instance $(G,k)$ of the problem, if $v$ is a vertex of $G$ with degree $0$ (isolated), $G$ has a vertex cover of size $k$ if $G-v$ has a vertex cover of size $k$, because an isolated vertex $v$ cannot cover any edges, so $v$ is not contained in any vertex cover. Then, we remove $v$. The new instance is $(G - v , k)$.
 
 
-\item If $G$ contains a vertex $v$ of degree greater than $k$, each vertex cover with size at most $k$ should contain $v$, since otherwise all of its neighbors (more than $k$ vertices) should be in the vertex cover to cover the incident edges. Then $v$ will be picked for optimal vertex cover. Remove such a $v$ from the graph and decrease $k$ by one. 
-The new instance is $(G - v , k - 1)$.
+\item If $G$ contains a vertex $v$ of degree greater than $k$, $G$ has a vertex cover of size $k$ iff $G\setminus v$ has a vertex cover of size $k - 1$: If $v$ is not in a vertex cover of size $k$, all of its neighbors (more than $k$ vertices) should be in the vertex cover to cover the incident edges. Remove such a $v$ from the graph and decrease $k$ by one. The new instance is $(G - v , k - 1)$.
 
-\item If neither of the previous two rules can be applied anymore, and the graph still has more than $k^2$ edges, then the graph cannot contain a vertex cover of size $k$, because, after eliminating all vertices of degree greater than
+\item If neither of the previous two rules can be applied anymore,
+\begin{itemize}
+\item If the graph still has more than $k^2$ edges, then the graph cannot contain a vertex cover of size $k$, because, after  removing all vertices of degree greater than 
 $k$, each remaining vertex can only cover at most $k$ edges and a set of
-$k$ vertices could only cover at most $k^2$ edges. In this case, the instance
-may be replaced by an instance with two vertices, one edge, and $k = 0$,
-which also has no solution.
-\end{enumerate}
+$k$ vertices could only cover at most $k^2$ edges. In this case, the problem has no solution.
 
-After applying these rules repeatedly until no more reductions are applicable, a kernel that has at most $k^2$ edges and at most $2k^2$ vertices will be obtained, because each edge has at most two endpoints and there are no isolated vertices.
+\item If the graph has at most $k^2$ edges, it has at most $2 k^2$ vertices, hence the size of the kernel is at most $2 k^2$.
+\end{itemize}
 
-All reduction rules (kernelization) are trivially applicable in linear time. After kernelization, the vertex cover problem may be solved by a brute force search algorithm that tests whether each subset of the kernel is a vertex cover of the kernel. Thus, the vertex cover problem can be solved in time $\mathcal{O}(2^{2k^2} + |V| + |E|)$ which is efficiently solvable for small $k$.
+  
+\end{itemize}
+
+
+
+All these reduction rules (kernelization) are trivially applicable in linear time. After kernelization, the vertex cover problem may be solved by a brute force search algorithm that tests whether each subset of the kernel is a vertex cover of the kernel. Thus, the vertex cover problem can be solved in time $\mathcal{O}(2^{2k^2} + |V| + |E|)$ which is efficiently solvable for small $k$.
 \end{exam}
+
+\newpage
+\subsection{Kernelization of the Vertex Coloring}
 
 In this thesis, we are interested in a kernelization on vertex coloring. 
 A kernelization on $3$-coloring using vertex cover has been discussed in \href{https://onedrive.live.com/view.aspx?resid=D39E73028C0B20E6!2586&ithint=file%2cpptx&app=PowerPoint&authkey=!AFs8zyWC8bfQ0PA}{a presentation} by Bart. Jansen, (Bonn, 2016) \cite{bart}.
@@ -624,7 +631,7 @@ visited yet, then mark it\;
 Delete all unmarked vertices outside of vertex cover\;
 \end{algorithm}
 
-\newpage
+\vspace{1cm}
 
 On the other hand, by finding exact minimal vertex cover instead of $2$-approximation for it, we have a smaller vertex cover, hence the number of its subsets of a specific size will be reduced, therefore there will be more vertex outside of vertex cover and then more unmarked vertices which will be deleted. This results in a smaller kernel which is more satisfiable.
 
@@ -706,7 +713,7 @@ There is a good algorithm for finding maximal cliques of a graph, called Bron-Ke
 
 It is used in this thesis by means of function \href{https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.clique.find_cliques.html}{find cliques} from NetworkX library of python:
 
-\newpage
+\vspace{1cm}
 
 \begin{algorithm}\label{bron}
 \begin{algorithmic}
@@ -1196,7 +1203,7 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \draw (3)--(xyz3)--(4); 
 \draw [red](f)--(xyz3)--(n); 
 \end{scope}
-\draw [dash pattern={on 1pt off 1pt}] (7,-6.5)--(10,-6.5)
+\draw [dash pattern={on 1pt off 4pt}] (7,-6.5)--(9,-6.5)
 \end{tikzpicture}
 %\end{element}
 %\end{tikzpicture}
@@ -1231,9 +1238,9 @@ Concerning the figure, the graph is $3$-colorable.
 \end{proof}
 
 
-DSATUR is a graph coloring algorithm created by Daniel Br\'elaz\cite{brelaz} in 1979. Algorithm DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy search. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color. 
+DSATUR is a graph coloring algorithm created by Daniel Br\'elaz \cite{brelaz} in 1979. Algorithm DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy search. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color. 
 
-Turner \cite{turner} proved that the run time for this heuristic algorithm could be $\mathcal{O}(m \log n)$, for a graph with $n$ vertices and $m$ edges.
+Turner \cite{turner} proved that the run time for the heuristic algorithm DSATUR could be $\mathcal{O}(m \log n)$, for a graph with $n$ vertices and $m$ edges.
 
 At first, one definition is needed:
 
