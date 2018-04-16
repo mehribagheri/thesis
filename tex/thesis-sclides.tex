@@ -1,113 +1,34 @@
-\documentclass[12pt]{article}
-
-\usepackage[a4paper]{geometry}
-            
-\usepackage[shortlabels]{enumitem}
-\usepackage{amssymb}
-
-\usepackage[nottoc]{tocbibind}
-
-\usepackage{rotating}
-
-\usepackage[square,numbers]{natbib}
-\bibliographystyle{abbrvnat}
-
-\usepackage{graphicx}
-
-\usepackage{float}
-\usepackage{blindtext}
-\usepackage{enumitem} 
-\usepackage{tikz}
-\usepackage{tkz-berge} 
-\usepackage{amsthm}
-\usepackage{hyperref}
-\usepackage{amsmath}
-\usepackage{parskip}
-\usepackage{afterpage}
-\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
-\usepackage{algpseudocode}
-
-\setlength{\parindent}{1em}
-\setlength{\parskip}{1.3em}
-\renewcommand{\baselinestretch}{1.5}
+\documentclass{beamer}
 
 
-\newtheoremstyle{slplain}% name
-  {2\baselineskip\@plus.5\baselineskip}% Space above
-  {2\baselineskip\@plus.5\baselineskip}% Space below
-  {\slshape}% Body font
-  {}%Indent amount (empty = no indent, \parindent = para indent)
-  {\bfseries}%  Thm head font
-  {.}%       Punctuation after thm head
-  { }%      Space after thm head: " " = normal interword space;
-        %       \newline = linebreak
-  {}%       Thm head spec
 
+\mode<presentation>
 
-\theoremstyle{slplain}
+{
+  \usetheme{Warsaw}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{defi}{Definition}
-\newtheorem{rema}{Remark}
-\newtheorem{exam}{Example}
-
-
+ 
+\setbeamercovered{transparent}
+\usepackage{color}
 \title{A programming approach to vertex coloring by kernelization}
-
 \author{{Mehri Bagherihamaneh}\\[.2cm]{317493}\\[1cm]{\small {Master thesis}}\\[.2cm]
 {\small {in Mathematics}}\\[1cm]{\small {Advisor: Prof. Dr. Arie M.C.A. Koster}}\\[.5cm]{\small {Lehr-und Forschungsgebiet Diskrete Optimierung}}\\ {\small {Rheinisch-Westfaelische Technische Hochschule Aachen}}}
 
 {\small \date{{Aachen, }\today}}
 
-
 \begin{document}
- {\rmfamily 
 
-\maketitle
-
-\afterpage{\null\newpage}
-\newpage
-
-\begin{center}
-{\bf Statutory Declaration}
-\end{center}
-
-I declare that I have developed and written the enclosed Master Thesis
-completely by myself, and have not used sources or means without declaration
-in the text. Any thoughts from others or literal quotations are clearly marked.
-The Master Thesis was not used in the same or in a similar version to achieve
-an academic grading or is being published elsewhere.
-
-%\newline
-	\end{Huge}\date{Aachen, }\today}}
-
-\begin{flushright}
-\begin{tabular}{rrr}
-		&		&		& 	\hline
-		&		&	 	&	    Mehri Bagherihamaneh
-
-\end{tabular}
-
-\end{flushright}
+\begin{frame}
+  \titlepage
+\end{frame}
 
 
-\afterpage{\null\newpage}
-\newpage
+\begin{frame}{Abstract}
 
-\tableofcontents
-
-\afterpage{\null\newpage}
-\newpage
-\setcounter{secnumdepth}{-2}
-\begin{center}
-\section{Abstract}
-\end{center}
 This thesis is about graph vertex coloring. The graph vertex coloring is a famous $NP$-complete combinatorial optimization problem. Recently, a new approach has been offered by using kernelization, which helps to solve vertex coloring easier with reduction of size of the  graph. In this thesis we will discuss the effect of kernelization on graphs, and reduction in size it causes, and demonstrate it by means of some sample graphs in practice. The algorithm used for coloring is "improved DSATUR-based Branch and Bound" that is an exact algorithm. Python is used as programming language. Due to its similarity with pseudo code,  Python is a good choice for these kind of works.
+\end{frame}
 
-\afterpage{\null\newpage}
-\newpage
-\setcounter{secnumdepth}{2}
-\section{Introduction}
+\begin{frame}{Introduction}
 Kernelization is a way to diminish size of certain problems and convert them to more manageable problems. By kernelization, a problem can be reduced to a smaller and easier problem, hence it can be solved easier and in a shorter time. 
 
 All $NP$-hard problems above a certain size are not practically solvable. Graph vertex coloring is one such problem. In this paper, we intend to analyze how usage of kernelization can help vertex coloring in graphs which cannot be colored otherwise.
@@ -118,7 +39,7 @@ In this chapter, basic and advanced related definitions with examples for more c
 \item Complexity
 \item Parameterized complexity
 \end{itemize}
-
+\end{frame}
 Chapter two, describes special kernelization for vertex coloring: An algorithm by using mininmum vertex cover, an improvement for the algorithm and the theorem which proves the correctness of the algorithm.
 
 Chapter three, describes finding minimum vertex cover through finding biggest clique in the graph.
@@ -140,7 +61,7 @@ Let $G = (V, E)$ be an undirected and simple graph with $V$ and $E$, as vertex s
 
 
 
-\begin{defi}
+in{frf	\begin{defi}
 An induced subgraph of a graph $G$ is another graph, which constitutes from a subset of the vertices of the graph $G$ and all of the edges connecting pairs of vertices in that subset. For $X \subseteq V(G)$, the subgraph induced by $X$ is denoted by $G[X]$ .
 \end{defi}
 
@@ -1601,16 +1522,12 @@ As we expected, it can be seen in the table, in most cases the first min vertex 
 
 \section{Conclusion}
 
-\subsection{Summary}
+\begin{frame}{Summary}
 In this thesis, we presented a special kernelization by using vertex cover for vertex coloring. Although this kernelization's algorithm was offered earlier, we improved it to reach a better result. In addition, we focused on computational part of it by means of programming in Python. As we needed, we modeled vertex cover by integer linear programming (ILP) restricted by maximal clique, and we got the exact vertex cover by using AMPL and CPLEX. For vertex coloring, we used the exact algorithm DSATUR-based Branch and Bound. As we saw in computational experiments chapter, it is an exact but slow algorithm, hence the kernelization can be very useful using this algorithm. 
-\subsection{Future Work}
+\end{frame}
+\begin{frame}{Work}
 We focused on kernelization, its implementation, vertex cover and DSATUR-based Branch and Bound algorithm. We compared the size of kernel with the original graph and also time of coloring before the kernelization with time of kernelization plus time of coloring the kernel. As we saw, some graphs were very good kernelized, their kernel were small enough and also their coloring time were reduced considerably, while some other graphs didn't have good kernels therefore, the overall coloring time for them were more than the original ones. It could be investigated which kind of graphs are from the first group and which graphs from the latter and why. It might be probable to identify some indexes in the graph and relate performance of kernelization to them.
-\afterpage{\null\newpage}
 
-\clearpage
-%\renewcommand{\refname}{\section{References}}
-
-\medskip
-\bibliography{mybib}
-
+\end{frame}
 \end{document}
+}
