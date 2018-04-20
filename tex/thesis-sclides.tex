@@ -2,6 +2,7 @@
 \usepackage{wrapfig}
 \usepackage{tikz}
 \usepackage{tkz-berge} 
+
 \usepackage{algorithm,algorithmic}
 \mode<presentation>
 
@@ -594,13 +595,10 @@ For $q = 3$, and the vertex cover $X$, mark these vertices: $\{v_6, v_7, v_8, v_
 \end{itemize}
 \end{frame}
 
-\begin{frame}{DSATUR}
+\begin{frame}{$k$-COLORING}
 \begin{theorem}
 $k$-COLORING for $k \geq 3$ is $NP$-complete.
 \end{theorem}
-\vspace{-1cm}
-\begin{proof}
-\vspace{-0.5cm}
 
 To prove this theorem, it is enough to prove it for $k = 3$.
 
@@ -612,8 +610,9 @@ To prove this theorem, it is enough to prove it for $k = 3$.
 
 For prove of $NP$-hardness, a reduction from $3$-SAT is used. In order to do the reduction, we need to construct a graph $G_\varphi$ correspondence to a $3$-CNF formula $\varphi$ with $n$ literals $t_1, t_2,\dots, t_n$ and $m$ clauses $C_1, C_2, \dots, C_m$. We should prove $G_\varphi$ is $3$-colorable iff $\varphi$ is satisfiable. 
 
+\end{frame}
 
-
+\begin{frame}{Proof}
 \begin{center}
 \begin{tikzpicture}
 \node[circle,inner sep=1pt,minimum size=1mm] (v1) at (-4,-2.5) {$v_1$};
@@ -645,8 +644,9 @@ For prove of $NP$-hardness, a reduction from $3$-SAT is used. In order to do the
 \end{center}
 \vspace{1cm}
 \end{frame}
-\begin{frame}
-If the graph $G_\varphi$ is $3$-colored, vertices $a$ and $b$ should have different colors, we will call the assigned colors to these two vertex $T$ (True) and $F$ (False) respectively. Then each pair $v_i$ and $\bar{v_i}$ should have colors $T$ and $F$ (or $F$ and $T$) respectively. We can interpret this as a truth assignment to the literals. We call the assigned color to the vertex $c$, color $N$ (Neutral). For easiness, will call the vertices $a$, $b$ and $c$ by their colors $T$, $F$ and $N$ respectively. We should expand the graph to include the clauses. We construct a small OR-gadget graph for each clause $Cj = (x \lor y\lor z)$ in $\varphi$:
+
+\begin{frame}{Proof-continue}
+We construct a small OR-gadget graph for each clause $Cj = (x \lor y\lor z)$ in $\varphi$:
 
 \begin{center}
 \begin{tikzpicture}[
@@ -676,31 +676,13 @@ If the graph $G_\varphi$ is $3$-colored, vertices $a$ and $b$ should have differ
 
 \end{tikzpicture}
 \end{center}
-\vspace{1cm}
+\end{frame}
 
-
-For inputs $x$, $y$ and $z$, the gadget results $(x \lor y\lor z)$:
-
-In a $3$-coloring, 
-
-\begin{itemize}
-
-\item if we color $x$, $y$, $z$ with color $F$ (false), then one of vertices $1$ and $2$ should be colored with $T$ and the other one with $N$, hence $x\lor y$ should be colored with $F$, therefore one of the vertices $3$ and $4$ should have the color $T$ and the other one color $N$. It results the color $F$ for the output $x\lor y\lor z$ as it was desired.
-
-
-\item if we color at least one of the input vertices with the color $T$, the output $x\lor y\lor z$ gets the color $T$. We don't check it here.
-\end{itemize}
-
+\begin{frame}{Proof-continue}
 Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F$ and $N$ from the triangle.
-
 \begin{center}
-%\tikzset{test/.style={circle, draw=black}}
-%\begin{figure}
 
 \begin{tikzpicture}
-
-%\begin{element}[place at cordinate (0,4), scale=1]
-%\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
 \node[circle,inner sep=1pt,minimum size=1mm] (v1) at (-4,-2.5) {$v_1$};
 \node[circle,inner sep=1pt,minimum size=1mm] (nv1) at (-3.5, -1.5) {$\bar{v_1}$};
 \node[circle,inner sep=1pt,minimum size=1mm] (v2) at (-3,-0.5) {$v_2$};
@@ -811,13 +793,10 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \end{scope}
 \draw [dash pattern={on 1pt off 4pt}] (7,-6.5)--(9,-6.5)
 \end{tikzpicture}
-%\end{element}
-%\end{tikzpicture}
- 
-%\end{figure}
 \end{center}
-\vspace{1cm}
+\end{frame}
 
+\begin{frame}{$k$-COLORING}
 and at last, we connect every literal from each clause in OR-gadget to its correspondence vertex $v_i$ or for negation of a literal to its correspondence vertex $\bar{v_i}$
 
 Now, the graph $G_\varphi$ is ready. We will prove that it is $3$-colorable iff $\varphi$ is satisfiable:
@@ -841,8 +820,9 @@ Concerning the figure, the graph is $3$-colorable.
 \end{itemize}
 \end{itemize}
 
-\end{proof}
+\end{frame}
 
+\begin{frame}{$k$-COLORING}
 
 DSATUR is a graph coloring algorithm created by Daniel Br\'elaz \cite{brelaz} in 1979. Algorithm DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy search. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color. 
 
@@ -855,7 +835,9 @@ Let $G$ be a simple and partially colored graph. The saturation degree of a vert
 \end{defi}
 
 In DSATUR algorithm (from {\bf d}egree {\bf sat}uration), nodes with higher degree of saturation are picked first, this yields a specific ordering of nodes for backtracking.
+\end{frame}
 
+\begin{frame}{$k$-COLORING}
 \vspace{1cm}
 
 \begin{algorithm}[H]
@@ -875,7 +857,9 @@ color.\;
 \end{algorithm}
 
 \newpage
+\end{frame}
 
+\begin{frame}{$k$-COLORING}
 DSATUR algorithm in its original form is not an exact algorithm and not much useful for our purpose in this paper. 
 
 There are several inhancements and variation, all based on DSATUR. One of them is "DSATUR-based Branch-$\&$-Bound" which gives an exact solution, optimized by node ordering proposed by DSATUR. This algorithm is used in this thesis.
@@ -886,7 +870,9 @@ chromatic number.)
 
 In exact algorithm, in first step we begin to color with the biggest clique in the DSATUR algorithm.
 
+\end{frame}
 
+\begin{frame}{$k$-COLORING}
 
 \newpage
 \newgeometry{left=1in,right=1.2in,top=1in,bottom=1in}
@@ -946,6 +932,6 @@ $k$ or more in a partial coloration, the label should be removed.\\
 should be done. For this go to step 8.\\}
 \end{algorithm}
 \restoregeometry
-
+\end{frame}
 \end{document}
 }

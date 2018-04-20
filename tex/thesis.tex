@@ -779,56 +779,9 @@ This graph has $11$ vertices and $20$ edges and is known to be $4$-colorable:
 
 \vspace{1cm}
 
-Step 1. Find exact minimum vertex cover:
+Step 1. Find exact minimum vertex cover from its ILP as we saw in previous chapter. (Its computation will be explained in chapter \ref{comp}):
 
-First of all, the program finds the biggest clique on it. It has no clique with size more than $2$.
-
-The input data file for AMPL contains these lines:
-\newpage
-{\small 
-\begin{verbatim}
-set Q := (0 , *) 1 , 9
-(1 , *) 1 , 2
-(2 , *) 1 , 4
-(3 , *) 1 , 7
-(4 , *) 2 , 8
-(5 , *) 2 , 3
-(6 , *) 2 , 6
-(7 , *) 3 , 10
-(8 , *) 3 , 5
-(9 , *) 3 , 7
-(10 , *) 4 , 10
-(11 , *) 4 , 5
-(12 , *) 4 , 6
-(13 , *) 5 , 8
-(14 , *) 5 , 9
-(15 , *) 11 , 8
-(16 , *) 11 , 9
-(17 , *) 11 , 10
-(18 , *) 11 , 6
-(19 , *) 11 , 7;
-set V := 1,2,3,4,5,6,7,8,9,10,11;
-set E := (1, 9),(1, 2),(1, 4),(1, 7),(2, 8),(2, 3),(2, 6),(3, 10),(3, 5),
-(3, 7),(4, 10),(4, 5),(4, 6),(5, 8),(5, 9),(6, 11),(7, 11),(8, 11),(9, 11),
-(10, 11);
-set Idx := 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19;
-set cnt := (1, 2),(12, 2),(3, 2),(13, 2),(8, 2),(15, 2),(18, 2),(9, 2),
-(11, 2),(16, 2),(17, 2),(19, 2),(6, 2),(2, 2),(4, 2),(14, 2),(5, 2),(0, 2),
-(7, 2),(10, 2);
-\end{verbatim}
-}
-Where $Q$ is the set of cliques of the graph, which contains 20 cliques of size $2$.
-
-After that, its minimum vertex cover will be computed with AMPL using the solver CPLEX. The output file contains:
-
-\noindent 1 \\
-2 \\
-3 \\
-4 \\
-5 \\
-11 \\
-
-Then, the set $X = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_{11}\}$  (shown below in red) is the minimum vertex cover, while the $2$-approximate vertex cover is $Y = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_6 , v_8 , v_9 , v_{10} , v_{11}\}$.
+The set $X = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_{11}\}$ (shown below in red) is the exact minimum vertex cover with size $6$, while the $2$-approximate vertex cover is $Y = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_6 , v_8 , v_9 , v_{10} , v_{11}\}$ with size $10$.
 
 \vspace{1cm}
 
@@ -926,15 +879,15 @@ $\{v_1 , v_2 , v_3 , v_4 , v_5 , v_6 , v_8 , v_9 , v_{10} , v_{11}\}$ which is n
 \end{enumerate}
 
 \begin{itemize}
-\item $v_6$ has these four neighbors: $\{v_4 , v_2 , v_{11}\}$
+\item $v_6$ has these three neighbors: $\{v_4 , v_2 , v_{11}\}$
 
-\item $v_7$ has these four neighbors: $\{v_1 , v_3 , v_{11}\}$
+\item $v_7$ has these three neighbors: $\{v_1 , v_3 , v_{11}\}$
 
-\item $v_8$ has these four neighbors: $\{v_2 , v_5 , v_{11}\}$ 
+\item $v_8$ has these three neighbors: $\{v_2 , v_5 , v_{11}\}$ 
 
-\item $v_9$ has these four neighbors: $\{v_1 , v_5 , v_{11}\}$
+\item $v_9$ has these three neighbors: $\{v_1 , v_5 , v_{11}\}$
 
-\item $v_{10}$ has these four neighbors: $\{v_4 , v_3 , v_{11}\}$ 
+\item $v_{10}$ has these three neighbors: $\{v_4 , v_3 , v_{11}\}$ 
 \end{itemize}
 
 Mark these vertices: $\{v_6, v_7, v_8, v_9, v_{10}\}$.
@@ -946,7 +899,7 @@ Step 4. Delete all unmarked vertices outside of the vertex cover:
  
 hence the kernel is equal to the original graph and is $4$-colorable.
 
-If we consider set $Y$ as the vertex cover, then only vertex $v_7$ is out of $Y$ and it doesn't have 4 neighbors in $Y$ , hence there is no unmarked vertex out of $Y$, hence the kernel is equal to the original graph.
+If we consider set $Y$ as the vertex cover, then only vertex $v_7$ is out of $Y$ and it doesn't have 3 neighbors in $Y$ , hence there is no unmarked vertex out of $Y$, hence the kernel is equal to the original graph.
 \end{itemize}
 
 \newpage
@@ -1405,7 +1358,55 @@ We revisit and analyze here the instance studied in the chapter \ref{section} (m
      
 As we see in the first column, we already know that this graph has chromatic number $4$. The graph has $11$ vertices and $20$ edges. 
 
-We compute the vertex cover with AMPL and CPLEX: the size of vertex cover is $6$. 
+We compute the vertex cover with AMPL and CPLEX: 
+
+First of all, the program finds the biggest clique on it. It has no clique with size more than $2$.
+
+The input data file for AMPL contains these lines:
+\newpage
+{\small 
+\begin{verbatim}
+set Q := (0 , *) 1 , 9
+(1 , *) 1 , 2
+(2 , *) 1 , 4
+(3 , *) 1 , 7
+(4 , *) 2 , 8
+(5 , *) 2 , 3
+(6 , *) 2 , 6
+(7 , *) 3 , 10
+(8 , *) 3 , 5
+(9 , *) 3 , 7
+(10 , *) 4 , 10
+(11 , *) 4 , 5
+(12 , *) 4 , 6
+(13 , *) 5 , 8
+(14 , *) 5 , 9
+(15 , *) 11 , 8
+(16 , *) 11 , 9
+(17 , *) 11 , 10
+(18 , *) 11 , 6
+(19 , *) 11 , 7;
+set V := 1,2,3,4,5,6,7,8,9,10,11;
+set E := (1, 9),(1, 2),(1, 4),(1, 7),(2, 8),(2, 3),(2, 6),(3, 10),(3, 5),
+(3, 7),(4, 10),(4, 5),(4, 6),(5, 8),(5, 9),(6, 11),(7, 11),(8, 11),(9, 11),
+(10, 11);
+set Idx := 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19;
+set cnt := (1, 2),(12, 2),(3, 2),(13, 2),(8, 2),(15, 2),(18, 2),(9, 2),
+(11, 2),(16, 2),(17, 2),(19, 2),(6, 2),(2, 2),(4, 2),(14, 2),(5, 2),(0, 2),
+(7, 2),(10, 2);
+\end{verbatim}
+}
+Where $Q$ is the set of cliques of the graph, which contains 20 cliques of size $2$.
+
+After that, its minimum vertex cover will be computed with AMPL using the solver CPLEX. The output file contains:
+
+\noindent 1 \\
+2 \\
+3 \\
+4 \\
+5 \\
+11 \\
+
 
 We color the graph with exact algorithm (DSATUR-based Branch and Bound), the chromatic number is obtained equal to $4$ and the time needed for this coloration is about $2.49$ miliseconds.  In this table, we checked two amounts for $q$: 
 
