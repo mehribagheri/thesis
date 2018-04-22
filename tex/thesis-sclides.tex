@@ -2,7 +2,7 @@
 \usepackage{wrapfig}
 \usepackage{tikz}
 \usepackage{tkz-berge} 
-
+\usepackage{verbatim}
 \usepackage{algorithm,algorithmic}
 \mode<presentation>
 
@@ -678,11 +678,14 @@ We construct a small OR-gadget graph for each clause $Cj = (x \lor y\lor z)$ in 
 \end{center}
 \end{frame}
 
+
 \begin{frame}{Proof-continue}
 Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F$ and $N$ from the triangle.
 \begin{center}
+\begin{tikzpicture}[scale=0.7]
 
-\begin{tikzpicture}
+%\begin{element}[place at cordinate (0,4), scale=1]
+%\begin{tikzpicture}[scale=1, every node/.style={scale=1}]
 \node[circle,inner sep=1pt,minimum size=1mm] (v1) at (-4,-2.5) {$v_1$};
 \node[circle,inner sep=1pt,minimum size=1mm] (nv1) at (-3.5, -1.5) {$\bar{v_1}$};
 \node[circle,inner sep=1pt,minimum size=1mm] (v2) at (-3,-0.5) {$v_2$};
@@ -712,7 +715,7 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 
 \begin{scope}[shift={(1.5,-5.5)},rotate=90,scale=0.5, every node/.style={scale=0.5}]
 
-{[
+[
        thick,
        acteur/.style={
          circle,
@@ -721,16 +724,16 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
          inner sep=2pt,
          minimum size=0.2cm
        }
-
+     ] 
 \node[label=$x_3$,fill=gray] (x) at (-4.5,-7.5) {};
 \node[label=$y_3$,fill=gray] (y) at (-4.5, -9.5) {};
 \node[label=below:$z_3$,fill=gray] (z) at (-4.5,-10) {};
 \node[label=above:1,circle,fill=black,inner sep=1pt,minimum size=3mm] (1) at (-2.5, -7.5) {};
 \node[label=right:2,circle,fill=black,inner sep=1pt,minimum size=3mm] (2) at (-2.5,-9.5) {};
-\node[label=$x_3\lor y_3$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, -8.5) {};
+\node[label=left:$x_3\lor y_3$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, -8.5) {};
 \node[label=right:3,circle,fill=black,inner sep=1pt,minimum size=3mm] (3) at (0,-8.5) {};
 \node[label=below:4,circle,fill=black,inner sep=1pt,minimum size=3mm] (4) at (0, -10) {};
-\node[label=below:$x_3\lor y_3\lor z_3$,fill=gray] (xyz1) at (2,-8.75) {};
+\node[label=right:$x_3\lor y_3\lor z_3$,fill=gray] (xyz1) at (2,-8.75) {};
 
 \draw (x)--(1)--(2)--(y);
 \draw (1)--(xy)--(2);
@@ -739,7 +742,7 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \draw [red] (f)--(xyz1)--(n);
    
    
-{[
+[
        thick,
        acteur/.style={
          circle,
@@ -754,10 +757,10 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \node[label=below:$z_2$,fill=gray] (z) at (-4.5,0) {};
 \node[label=above:1,circle,fill=black,inner sep=1pt,minimum size=3mm] (1) at (-2.5, 2.5) {};
 \node[label=right:2,circle,fill=black,inner sep=1pt,minimum size=3mm] (2) at (-2.5,0.5) {};
-\node[label=$x_2\lor y_2$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, 1.5) {};
+\node[label=left:$x_2\lor y_2$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, 1.5) {};
 \node[label=right:3,circle,fill=black,inner sep=1pt,minimum size=3mm] (3) at (0,1.5) {};
 \node[label=below:4,circle,fill=black,inner sep=1pt,minimum size=3mm] (4) at (0, 0) {};
-\node[label=below:$x_2\lor y_2\lor z_2$,fill=gray] (xyz2) at (2,0.75) {};
+\node[label=right:$x_2\lor y_2\lor z_2$,fill=gray] (xyz2) at (2,0.75) {};
 
 \draw (x)--(1)--(2)--(y);
 \draw (1)--(xy)--(2);
@@ -765,7 +768,7 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \draw (3)--(xyz2)--(4);  
 \draw [red](f)--(xyz2)--(n);
 
-{[
+[
        thick,
        acteur/.style={
          circle,
@@ -780,10 +783,10 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \node[label=below:$z_1$,fill=gray] (z) at (-4.5,10) {};
 \node[label=above:1,circle,fill=black,inner sep=1pt,minimum size=3mm] (1) at (-2.5, 12.5) {};
 \node[label=right:2,circle,fill=black,inner sep=1pt,minimum size=3mm] (2) at (-2.5,10.5) {};
-\node[label=$x_1\lor y_1$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, 11.5) {};
+\node[label=left:$x_1\lor y_1$,circle,fill=black,inner sep=1pt,minimum size=3mm] (xy) at (-1, 11.5) {};
 \node[label=right:3,circle,fill=black,inner sep=1pt,minimum size=3mm] (3) at (0,11.5) {};
 \node[label=below:4,circle,fill=black,inner sep=1pt,minimum size=3mm] (4) at (0,10) {};
-\node[label=below:$x_1\lor y_1\lor z_1$,fill=gray] (xyz3) at (2,10.75) {};
+\node[label=right:$x_1\lor y_1\lor z_1$,fill=gray] (xyz3) at (2,10.75) {};
 
 \draw (x)--(1)--(2)--(y);
 \draw (1)--(xy)--(2);
@@ -796,142 +799,146 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \end{center}
 \end{frame}
 
-\begin{frame}{$k$-COLORING}
-and at last, we connect every literal from each clause in OR-gadget to its correspondence vertex $v_i$ or for negation of a literal to its correspondence vertex $\bar{v_i}$
-
-Now, the graph $G_\varphi$ is ready. We will prove that it is $3$-colorable iff $\varphi$ is satisfiable:
-
+\begin{frame}{Proof-continue}
 \begin{itemize}
 \item $\varphi$ is satisfiable implies $G_\varphi$ is $3$-colorable:
 
-\begin{itemize}
-\item $\varphi$ is satisfiable, means that its all clauses are "True" and therefore every OR-gadget in $G_\varphi$ resluts $T$ color. 
-
-\item If literal $t_i$ has truth value "True", we color $v_i$ with $T$ and $\bar{v_i}$ with $F$. 
-
-Concerning the figure, the graph is $3$-colorable. 
-
-\end{itemize}
 \item $G_\varphi$ is $3$-colorable implies $\varphi$ is satisfiable.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DSATUR}
 \begin{itemize}
-\item If $v_i$ is colored $T$ and hence $\bar{v_i}$ is colored $F$, we set $t_i$ to "True" and therefore negation of it to "False", that is a valid assignment.
 
-\item Because of $3$-colorability of the graph, output of every OR-gadget should be colored $T$ because it is connected to vertices with colors $F$ and $N$, Hence at least one of input vertices of each OR-gadget is colored $T$, then $\varphi$ is satisfiable. 
-\end{itemize}
-\end{itemize}
+\item DSATUR is a graph coloring algorithm created by Daniel Br\'elaz in 1979. 
 
+\item The run time for the heuristic algorithm DSATUR could be $\mathcal{O}(m \log n)$, for a graph with $n$ vertices and $m$ edges.
+\end{itemize}
+\begin{definition}
+Let $G$ be a simple and partially colored graph. The saturation degree of a vertex is the number of different colors to which it is adjacent (colored vertices).
+\end{definition}
 \end{frame}
 
-\begin{frame}{$k$-COLORING}
-
-DSATUR is a graph coloring algorithm created by Daniel Br\'elaz \cite{brelaz} in 1979. Algorithm DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy search. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color. 
-
-Turner \cite{turner} proved that the run time for the heuristic algorithm DSATUR could be $\mathcal{O}(m \log n)$, for a graph with $n$ vertices and $m$ edges.
-
-At first, one definition is needed:
-
-\begin{defi}
-Let $G$ be a simple and partially colored graph. The saturation degree of a vertex is the number of different colors to which it is adjacent (colored vertices).\cite{brelaz}
-\end{defi}
-
-In DSATUR algorithm (from {\bf d}egree {\bf sat}uration), nodes with higher degree of saturation are picked first, this yields a specific ordering of nodes for backtracking.
-\end{frame}
-
-\begin{frame}{$k$-COLORING}
-\vspace{1cm}
+\begin{frame}{DSATUR-Algorithm}
 
 \begin{algorithm}[H]
+\begin{algorithmic}[1]
 \SetAlgoLined
 \DontPrintSemicolon
-  \caption{DSATUR (so called because it uses saturation degree)\cite{brelaz}}
+  \caption{DSATUR (so called because it uses saturation degree)}
 
-  Arrange the vertices by decreasing order of degrees.\;
-   Color a vertex of maximal degree with color $1$.\;
-  Choose a vertex with a maximal saturation degree. If there is an
-equality, break the tie by choosing any vertex of maximal degree in the uncolored
-subgraph.\;
-    Color the chosen vertex with the least possible (lowest numbered)
-color.\;
-  If all the vertices are colored, stop. Otherwise, return to step 3.\;
- 
+\STATE Arrange the vertices by decreasing order of degrees.\\
+\STATE Color a vertex of maximal degree with color $1$.\\
+\STATE Choose a vertex with a maximal saturation degree. If there is an
+\STATE  equality, break the tie by choosing any vertex of maximal degree in the uncolored
+subgraph.\\
+\STATE Color the chosen vertex with the least possible (lowest numbered)
+color.\\
+\STATE If all the vertices are colored, stop. Otherwise, return to step 3.\\
+\end{algorithmic}
 \end{algorithm}
-
-\newpage
 \end{frame}
 
-\begin{frame}{$k$-COLORING}
-DSATUR algorithm in its original form is not an exact algorithm and not much useful for our purpose in this paper. 
+\begin{frame}{Randall-Brown's Modified Algorithm}
+%\newgeometry{left=1in,right=1.2in,top=1in,bottom=1in}
+\begin{enumerate}
 
-There are several inhancements and variation, all based on DSATUR. One of them is "DSATUR-based Branch-$\&$-Bound" which gives an exact solution, optimized by node ordering proposed by DSATUR. This algorithm is used in this thesis.
 
-If the vertices are being colored successively with the least possible color in a
-given order, the coloration is started from a clique. (lower bounds on the 
-chromatic number.)
-
-In exact algorithm, in first step we begin to color with the biggest clique in the DSATUR algorithm.
-
-\end{frame}
-
-\begin{frame}{$k$-COLORING}
-
-\newpage
-\newgeometry{left=1in,right=1.2in,top=1in,bottom=1in}
-\begin{algorithm}[H]
-\SetAlgoLined
-\DontPrintSemicolon
-  \caption{Randall-Brown's Modified Algorithm\cite{randall}}
-  
-{\small  Find a maximal clique $K$. Let dimension of clique is $w$. By using DSATUR
+ 
+{\tiny  \item Find a maximal clique $K$. Let dimension of clique is $w$. By using DSATUR
 beginning with this clique, find an initial coloration with $r$ colors (an
 upper bound) and a rank (coloration) order of the vertices. If $w = r$ , stop.\\
 
- Color the vertices of the clique $K$ with $1, 2, . . . w$ successively. For each
+\item  Color the vertices of the clique $K$ with $1, 2, . . . w$ successively. For each
 vertex $v$ in $G$ let $U(v) \in \{1, 2, . . . r + 1\}$ is the set of colors which can color
 $v$. For each vertex $x_k$ out of the clique, let $U(x_k) = U(x_k) - j$ where $j$ is
 the color of a vertex in $K$ which is adjacent to $x_k$.\\
 
- Let $k = w + 1$ and $q = r$.\newline
+\item  Let $k = w + 1$ and $q = r$.\newline
 $U(x_k)$ is upper-limited by color $q - 1$ and each vertex is limited by the color
 with the same cardinality as its rank). Color $x_k$ with the least possible
 color and remove this color from $U(x_k)$ and the color list of all vertices
 which are adjacent to $x_k$ , until there is a modification of the $x_k$ color.
 
- Let $k = k + 1$ and determine $U(x_k)$.\\
+\item Let $k = k + 1$ and determine $U(x_k)$.\\
 
- If $U(x_k) = \infty$ go to step 10. Otherwise let $i$ be the least color of $U(x_k)$ and
+\item  If $U(x_k) = \infty$ go to step 10. Otherwise let $i$ be the least color of $U(x_k)$ and
 color $x_k$ with $i$ and $U(x_k) = U(x_k) - i$ then remove this color from the
 color set of all vertices adjacent to $x_k$ (with greater rank) until there is a
 modification of $x_k$ color. If $i \geq q$ go to step 8.\\
 
- If $k = n$ , let $q = L$ where $L$ is the number of colors used for this coloration
+\item  If $k = n$ , let $q = L$ where $L$ is the number of colors used for this coloration
 and go to step 7, otherwise go to step 4.\\
 
- If $q = w$, stop. Otherwise , let $x_j$ be the $q$-colored vertex with minimal
+\item  If $q = w$, stop. Otherwise , let $x_j$ be the $q$-colored vertex with minimal
 rank. If the rank of $x_j$ is equal to $w + 1$ , stop, otherwise let $k = j - 1$ and
 go to step 5.\\
 
- If $k = w + 1$ stop. Otherwise, label all unlabeled vertices which have the
+\item  If $k = w + 1$ stop. Otherwise, label all unlabeled vertices which have the
 following properties:
 \begin{enumerate}[(i)]
-\item with rank $< k$,
+{\tiny \item with rank $< k$,
 
 \item adjacent to $k$,
 
 \item with none of the colors of vertices of the clique adjacent to $k$ , and
 \item with minimal rank among all vertices of their color which are adjacent
-to $k$.
-\end{enumerate}\newline
+to $k$.}
+\end{enumerate}
 Now let $\nu = k$ . For those vertices are labeled with $k$, if we obtain the rank
 $k$ or more in a partial coloration, the label should be removed.\\
 
 
-\nl Let $k = t$ where $t$ is the maximal rank of labeled vertices, which have rank $< k$. For $k < i \leq \nu$ , $U(x_i)$ is the set of colors defind in step 3. Go to step 5.\\
+\item  Let $k = t$ where $t$ is the maximal rank of labeled vertices, which have rank $< k$. For $k < i \leq \nu$ , $U(x_i)$ is the set of colors defind in step 3. Go to step 5.\\
 
 
-\nl If none of the colors is possible for $x_k$ (all are tested), then backtracking
+\item  If none of the colors is possible for $x_k$ (all are tested), then backtracking
 should be done. For this go to step 8.\\}
-\end{algorithm}
-\restoregeometry
+\end{enumerate}
+
 \end{frame}
+
+\begin{frame}{Computational Experiments}
+Solve ILP for vertex cover:
+\begin{itemize}
+\item Make a model with AMPL for vertex cover restricted by maximal cliques.
+\item Solving it with CPLEX samples.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{AMPL Model for vertex cover restricted to maximal cliques}
+
+
+\begin{verbatim}
+# Declarations
+set V;
+set E within V cross V;
+set Idx;
+set Q within Idx cross V;
+set cnt within Idx cross V;
+var x {v in V} binary;
+# integrality constraints.
+# Objective Function
+minimize cover_size: sum { v in V } x[v];
+# Constraints
+subject to clique {c in Idx}:
+sum {(a, b) in Q: a=c} x[b] >= card{(a,b) in Q: a=c}-1;
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}{Conclusion}
+\begin{itemize}
+\item Summary
+\item Future Work
+\begin{itemize}
+\item Which kind of graphs and why
+\item probable to identify some indexes in the graph and relate performance of kernelization to them.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
 \end{document}
 }

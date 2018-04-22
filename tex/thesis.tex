@@ -112,9 +112,10 @@ Kernelization is a way to diminish size of certain problems and convert them to 
 
 All $NP$-hard problems above a certain size are not practically solvable. Graph vertex coloring is one such problem. In this paper, we intend to analyze how usage of kernelization can help vertex coloring in graphs which cannot be colored otherwise.
 
-In this chapter, basic and advanced related definitions with examples for more clarification are introduced in three sections:
+In this chapter, basic and advanced related definitions with examples for more clarification are introduced in four sections:
 \begin{itemize}
 \item Graph theory
+\item Propositional logic
 \item Complexity
 \item Parameterized complexity
 \end{itemize}
@@ -141,14 +142,14 @@ Let $G = (V, E)$ be an undirected and simple graph with $V$ and $E$, as vertex s
 
 
 \begin{defi}
-An induced subgraph of a graph $G$ is another graph, which constitutes from a subset of the vertices of the graph $G$ and all of the edges connecting pairs of vertices in that subset. For $X \subseteq V(G)$, the subgraph induced by $X$ is denoted by $G[X]$ .
+An {\bf induced subgraph} of a graph $G$ is another graph, which constitutes from a subset of the vertices of the graph $G$ and all of the edges connecting pairs of vertices in that subset. For $X \subseteq V(G)$, the subgraph induced by $X$ is denoted by $G[X]$ .
 \end{defi}
 
 
 \begin{defi}
-A vertex cover $V'$ of a graph is a subset of $V$ such that for every edge $uv \in E$ , $u \in V'$ or $v \in V'$ , that means every edge has at least one endpoint in the vertex cover. 
+A {\bf vertex cover} $V'$ of a graph is a subset of $V$ such that for every edge $uv \in E$ , $u \in V'$ or $v \in V'$ , that means every edge has at least one endpoint in the vertex cover. 
 
-The minimum vertex cover problem is the problem of finding a vertex  cover with minimum number of vertices in a given graph. The size of minimum vertex cover is called the vertex cover number and denoted by $\tau(G)$ .
+The {\bf minimum vertex cover} problem is the problem of finding a vertex  cover with minimum number of vertices in a given graph. The size of minimum vertex cover is called the vertex cover number and denoted by $\tau(G)$ .
 \end{defi}
 
 \begin{theorem}
@@ -156,11 +157,11 @@ Minimum vertex cover problem is a $NP$-complete problem.\cite{cormen} (We discus
 \end{theorem}
 
 \begin{defi}
-An independent set or stable set $S$ of a graph is a subset
+An {\bf independent set} or stable set $S$ of a graph is a subset
 of $V$ such that no two vertices of $S$ are adjacent, namely, for every two
 vertices in $S$, there is no edge connecting these two vertices. 
 
-A maximum independent set is an independent set of the largest possible size. This size is called the independence number of $G$, and denoted by $\alpha(G)$. The problem of finding maximum independent set is called the maximum independent set problem.
+A {\bf maximum independent set} is an independent set of the largest possible size. This size is called the independence number of $G$, and denoted by $\alpha(G)$. The problem of finding maximum independent set is called the maximum independent set problem.
 \end{defi}
 
 \begin{theorem}	
@@ -200,7 +201,7 @@ In this graph, set $\{v_1 , v_3 , v_4 , v_6\}$ constitutes a vertex cover, but t
 
 \end{center}
 
-As can be seen, the subset $\{v_2 , v_3 , v_4\}$ is a minimum vertex cover (red) and $\{v_1 , v_5 , v_6\}$ is a maximum independent set (blue).
+As can be seen in next figure, the subset $\{v_2 , v_3 , v_4\}$ is a minimum vertex cover (red) and $\{v_1 , v_5 , v_6\}$ is a maximum independent set (blue).
 
 \vspace{1cm}
 \begin{center}
@@ -220,13 +221,13 @@ As can be seen, the subset $\{v_2 , v_3 , v_4\}$ is a minimum vertex cover (red)
 \end{exam}
 
 \begin{defi}
-A clique in a graph is a subset of vertices such that every two distinct vertices are adjacent. 
+A {\bf clique} in a graph is a subset of vertices such that every two distinct vertices are adjacent. 
 
-A maximal clique is a clique that cannot be extended by adding one more adjacent vertex. The maximal clique problem is the problem of finding all maximal cliques in a graph.
+A {\bf maximal clique} is a clique that cannot be extended by adding one more adjacent vertex. The maximal clique problem is the problem of finding all maximal cliques in a graph.
 % and it may require exponential time as there exist graphs with exponentially many maximal cliques. For example in a complete graph %with $2n$ vertives, there are $2^n$ maximal cliques.
 %(Take the complete graph on $2n$ nodes and remove a perfect matching there are $2^n$ maximal cliques.) 
 
-A maximum clique is a clique that has the maximum possible number of vertices. The clique number, $\omega(G)$, is the number of vertices in a maximum clique of $G$. 
+A {\bf maximum clique} is a clique that has the maximum possible number of vertices. The clique number, $\omega(G)$, is the number of vertices in a maximum clique of $G$. 
 \end{defi}
 
 \begin{theorem}
@@ -254,15 +255,15 @@ $\{v_2 , v_4\}$ , $\{v_3 , v_5\}$ , $\{v_4 , v_5\}$ , $\{v_4 , v_6\}$.
 \end{exam}
 
 \begin{defi}
-A vertex coloring is an assignment of labels or colors to each
+A {\bf vertex coloring} is an assignment of labels or colors to each
 vertex of a graph such that no edge connects two vertices with the same color.
 
-The chromatic number of a graph is the smallest number of colors needed for
+The {\bf chromatic number} of a graph is the smallest number of colors needed for
 vertex coloring and denoted by $\chi(G)$. 
 
 A vertex coloring of a graph with $k$ or fewer colors is known as a $k$-coloring. A proper $k$-coloring is an assignment of $k$ colors to the vertices of a graph so that no two adjacent vertices have the same color. 
 
-A proper $k$-coloring of a graph $G$ can be shown as a function $f: V(G) \to \{1, 2, 3, . . . , k\}$ such that adjacent vertices get different colors, namely in a proper coloring, for all edges $\{u, v\}$ we have $f(u) \not= f(v)$.
+A {\bf proper $k$-coloring} of a graph $G$ can be shown as a function $f: V(G) \to \{1, 2, 3, . . . , k\}$ such that adjacent vertices get different colors, namely in a proper coloring, for all edges $\{u, v\}$ we have $f(u) \not= f(v)$.
 \end{defi}
 
 
@@ -283,65 +284,16 @@ The petersen graph is $3$-colorable as shown:
 \end{exam}
 \vspace{0.5cm}
 
-\newpage
-\subsection{Complexity}{\label{comp}}
+\subsection{Propositional logic}
 
 \begin{defi}
-For an instance $I$ from instance set $\mathcal{I}$, a decision problem $\Pi$ is a YES-NO question which asks if
-there is at least one solution for the problem $\Pi$ in $I$.
-\end{defi}
-
-\begin{exam}
-An example of a decision problem is CLIQUE problem: For a graph $G$ and an integer $k$, does there exist at least one clique of size $k$ in the graph? 
-\end{exam}
-
-\begin{theorem}
-CLIQUE problem is $NP$-complete. \cite{karp}
-\end{theorem}
-
-\begin{exam}
-$k$-COLORING is a decision problem, which asks if we can color a graph $G$ with $k\in\mathbb{N}$ or fewer colors. For $k \geq 3$ in general graphs, $k$-COLORING is $NP$-complete. We discuss it in chapter \ref{dsat}.
-\end{exam}
-
-\begin{exam}
-Another example of a decision problem is VERTEX COVER: For a graph $G$ and an integer $k$, is there any vertex cover of size at most $k$ in the graph? 
-\end{exam}
-
-\begin{theorem}
-VERTEX COVER problem is $NP$-complete. \cite{karp}
-\end{theorem}
-
-\begin{defi}
-In computational complexity theory, there are some different classes of decision problems:
-
-\begin{itemize}
-\item Fundamental complexity class $P$ (PTIME), contains all decision problems that can be solved by a deterministic \href{https://en.wikipedia.org/wiki/Turing_machine}{Turing machine}\cite{turing} in a polynomial time. 
-
-Many natural problems are in $P$. For example the problem of determining if a number is prime, is in $P$\cite{manindra}.
-
-\item $NP$ (for non-deterministic polynomial) is a complexity class that contains all decision problems for which the instances where the answer is "yes" have efficiently verifiable proofs by deterministic computations that can be performed in polynomial time. $P\subset NP$.
-
-\item $NP$-hard class includes the problems like $H$ such that every problem $M$ in class $NP$ can be reduced in polynomial time to $H$. Informally, $NP$-hard class contains the hardest problems in $NP$. 
-
-With this definition, it is obvious that, if $P \not= NP$, $NP$-hard problems cannot be solved in polynomial time. An example of a $NP$-hard problem is the traveling salesman problem.\cite{lawler}
-
-\item $NP$-complete class is equal to the intersection of the $NP$ class and $NP$-hard class, namely, A decision problem $L$ is $NP$-complete if satisfies these two conditions:
-\begin{enumerate}
-\item Every problem in $NP$ is reducible to $L$ in polynomial time that means $L$ is $NP$-hard.
-
-\item $L$ is in $NP$.
-\end{enumerate}
-\end{itemize}
-\end{defi}
-
-\begin{defi}
-A propositional logic (boolean) formula is constructed by some variables (atomic formulas) and constants using operators AND (conjunction "$\land$"), OR (disjunction "$\lor$"), NOT (negation "$\lnot$") and parentheses. 
+A {\bf propositional logic} (boolean) formula is constructed by some variables (atomic formulas) and constants using operators AND (conjunction "$\land$"), OR (disjunction "$\lor$"), NOT (negation "$\lnot$") and parentheses. 
 
 Every variable can get logical values (TRUE or FALSE). 
 
-A literal is an atomic formula (atom) or its negation. 
+A {\bf literal} is an atomic formula (atom) or its negation. 
 
-A clause is an expression constructed from a finite  disjunction or conjunction of literals.
+A {\bf clause} is an expression constructed from a finite  disjunction or conjunction of literals.
 \end{edfi}
 
 \begin{exam}
@@ -355,7 +307,7 @@ Some examples for boolean formulas are:
 \end{exam}
 
 \begin{defi}
-A boolean formula is satisfiable if it can be TRUE by assigning logical values to its variables. 
+A boolean formula is {\bf satisfiable} if it can be TRUE by assigning logical values to its variables. 
 \end{defi}
 
 \begin{exam}
@@ -404,7 +356,7 @@ F & T & F\\
 
 
 \begin{defi}
-A boolean formula is in conjunctive normal form (CNF) if it is a conjunction of one or more disjunctions of variables.
+A boolean formula is in {\bf conjunctive normal form (CNF)} if it is a conjunction of one or more disjunctions of variables.
 \end{defi}
 
 \begin{exam}
@@ -417,12 +369,64 @@ These formulas are in CNF form.
 \end{exam}
 
 \begin{defi}
-For a given CNF formula $\varphi$, the boolean satisfiability problem (SAT) is a decision problem which asks whether the formula $\varphi$ is satisfiable. The $3$-SAT problem is a SAT problem with at most $3$ variables in each clause. 
+For a given CNF formula $\varphi$, the boolean {\bf satisfiability problem (SAT)} is a decision problem which asks whether the formula $\varphi$ is satisfiable. The {\bf $3$-SAT problem} is a SAT problem with at most $3$ variables in each clause. 
 \end{defi}
 
-\begin{theorem}\label{3-sat}
+\begin{theorem}
 The $3$-SAT problem is $NP$-complete. \cite{cook}
 \end{theorem}
+
+\newpage
+\subsection{Complexity}{\label{comp}}
+
+\begin{defi}
+For an instance $I$ from instance set $\mathcal{I}$, a {\bf decision problem} $\Pi$ is a YES-NO question which asks if
+there is at least one solution for the problem $\Pi$ in $I$.
+\end{defi}
+
+\begin{exam}
+An example of a decision problem is CLIQUE problem: For a graph $G$ and an integer $k$, does there exist at least one clique of size $k$ in the graph? 
+\end{exam}
+
+\begin{theorem}
+CLIQUE problem is $NP$-complete. \cite{karp}
+\end{theorem}
+
+\begin{exam}
+$k$-COLORING is a decision problem, which asks if we can color a graph $G$ with $k\in\mathbb{N}$ or fewer colors. For $k \geq 3$ in general graphs, $k$-COLORING is $NP$-complete. We discuss it in chapter \ref{dsat}.
+\end{exam}
+
+\begin{exam}
+Another example of a decision problem is VERTEX COVER: For a graph $G$ and an integer $k$, is there any vertex cover of size at most $k$ in the graph? 
+\end{exam}
+
+\begin{theorem}
+VERTEX COVER problem is $NP$-complete. \cite{karp}
+\end{theorem}
+
+\begin{defi}
+In computational complexity theory, there are some different classes of decision problems:
+
+\begin{itemize}
+\item Fundamental complexity {\bf class $P$ (PTIME)}, contains all decision problems that can be solved by a deterministic \href{https://en.wikipedia.org/wiki/Turing_machine}{Turing machine}\cite{turing} in a polynomial time. 
+
+Many natural problems are in $P$. For example the problem of determining if a number is prime, is in $P$\cite{manindra}.
+
+\item {\bf $NP$ (for non-deterministic polynomial)} is a complexity class that contains all decision problems for which the instances where the answer is "yes" have efficiently verifiable proofs by deterministic computations that can be performed in polynomial time. $P\subset NP$.
+
+\item {\bf $NP$-hard class} includes the problems like $H$ such that every problem $M$ in class $NP$ can be reduced in polynomial time to $H$. Informally, $NP$-hard class contains the hardest problems in $NP$. 
+
+With this definition, it is obvious that, if $P \not= NP$, $NP$-hard problems cannot be solved in polynomial time. An example of a $NP$-hard problem is the traveling salesman problem.\cite{lawler}
+
+\item {\bf $NP$-complete class} is equal to the intersection of the $NP$ class and $NP$-hard class, namely, A decision problem $L$ is $NP$-complete if satisfies these two conditions:
+\begin{enumerate}
+\item Every problem in $NP$ is reducible to $L$ in polynomial time that means $L$ is $NP$-hard.
+
+\item $L$ is in $NP$.
+\end{enumerate}
+\end{itemize}
+\end{defi}
+
 
 The following problem is an unsolved problem in computer science:
 
@@ -469,7 +473,7 @@ Some scientists believe that $P = NP$ and some don't. These two cases are shown 
 If we assume $P \not = NP$, there are some problems with exponential running time when complexity is measured in terms of the input size only, but they are computable in a time that is polynomial in the input size and exponential in a parameter $k$. Hence, for small parameter (but large instance), we can use efficient exact algorithms. 
 
 \begin{defi}
-A parameterized problem is a pair $(\Pi, \kappa)$ in which $\Pi$ is a
+A {\bf parameterized problem} is a pair $(\Pi, \kappa)$ in which $\Pi$ is a
 decision problem with instance set $\mathcal{I}$ and $\kappa : \mathcal{I} \to \mathbb{N}$, which is a polynomial
 time computable function, called parameter.
 \end{defi}
@@ -483,6 +487,9 @@ parameter : $k$
 
 problem : Is there any vertex cover set in $G$ with maximum size of $k$?
 \end{exam}
+
+
+
 
 
 
@@ -501,7 +508,7 @@ Actually, kernelization or data reduction is helpful in practical computer imple
 Let $(\Pi, \kappa)$ be a parameterized problem, $I\in\mathcal{I}$ an instance and $\kappa: \mathcal{I} \to \mathbb{N}$ a parameterization for $\Pi$:
 
 A polynomial time computable function $f : \mathcal{I} \times \mathbb{N} \to \mathcal{I} \times \mathbb{N}$ is called a
-kernelization for $(\Pi, \kappa)$ , if $f(I, \kappa(I)) = (I', \kappa(I'))$ such that it satisfies these 3 properties:
+{\bf kernelization} for $(\Pi, \kappa)$ , if $f(I, \kappa(I)) = (I', \kappa(I'))$ such that it satisfies these 3 properties:
 
 \begin{enumerate}[(i)]
 \item For each $I \in \mathcal{I}$, $(I, \kappa(I))$ is a "YES"-instance of $\Pi$ iff $(I', \kappa(I'))$ is a "YES"-instance of $\Pi$.
@@ -511,7 +518,7 @@ kernelization for $(\Pi, \kappa)$ , if $f(I, \kappa(I)) = (I', \kappa(I'))$ such
 \item $\kappa(I')\leq \kappa(I)$.
 \end{enumerate}
 
-$I'$ is kernel of $(\Pi, \kappa)$ and $f'(\kappa(I))$ is called the size of the kernel.
+$I'$ is {\bf kernel} of $(\Pi, \kappa)$ and $f'(\kappa(I))$ is called the size of the kernel.
 
 \end{defi}
 
@@ -610,9 +617,9 @@ run time of the algorithm is less than $k^2 + k^q$, and it concludes the proof.
 \end{proof}
 \vspace{1cm}
 
-At first I tried to implement the algorithm in the presentation, exactly following steps as stated in the presentation, but it was too slow, because of high number of subsets of vertex cover, specially with larg graphs. In this way, kernelization took much more time than coloring of the original graph itself. Then to optimize the execution time, I considered the problem from the other side. 
+At first, I tried to implement the algorithm in the presentation, exactly following steps as stated in the presentation, but it was too slow, because of high number of subsets of vertex cover, specially with larg graphs. In this way, kernelization took much more time than coloring of the original graph itself. Then to optimize the execution time, I considered the problem from the other side. 
 
-In this new aspect, we don't need to compute all subsets of the vertex cover of size $3$ or in general $q$, which is too slow. Instead, we consider the nodes outside of the vertex cover and for each, we check if it has $3$ ($q$) distinct vertices in the vertex cover. This version yields the same result as the original algorithm. (Algorithm \ref{kern})
+In this new aspect, we don't need to compute all subsets of the vertex cover of size $3$ or in general $q$, which is too slow. Instead, we consider the nodes outside of the vertex cover and for each, we check if it has $3$ ($q$) distinct vertices in the vertex cover. This version (Algorithm \ref{kern}) yields the same result as the original algorithm. 
 
 \vspace{1cm}
 
@@ -648,7 +655,7 @@ The next step is improving vertex cover which will be discussed in the next chap
 Minimum vertex cover is a typical example of an $NP$-complete optimization problem that has an approximation algorithm. We are interested in an exact solution; one way to solve the problem is integer linear programming.
 
 \begin{defi}
-Linear programming (LP) is an optimization problem with linear objective function (a linear mathematical model) and result based on some set of linear equality and inequality constraints. 
+{\bf Linear programming (LP)} is an optimization problem with linear objective function (a linear mathematical model) and result based on some set of linear equality and inequality constraints. 
 
 LP is a modeling technique in mathematics to find maximum (or minimum) of a linear function on a convex polytope (optimize). In fact, this convex polytope is presentation of some inequality constraints on variables of the function. The solution for a linear programming is a point in the polytope where this function has the largest (or smallest) value if such a point exists.
 
@@ -779,7 +786,7 @@ This graph has $11$ vertices and $20$ edges and is known to be $4$-colorable:
 
 \vspace{1cm}
 
-Step 1. Find exact minimum vertex cover from its ILP as we saw in previous chapter. (Its computation will be explained in chapter \ref{comp}):
+Step 1. Find exact minimum vertex cover from its ILP as we saw in previous chapter. (Its computation will be explained in chapter \ref{exp}):
 
 The set $X = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_{11}\}$ (shown below in red) is the exact minimum vertex cover with size $6$, while the $2$-approximate vertex cover is $Y = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_6 , v_8 , v_9 , v_{10} , v_{11}\}$ with size $10$.
 
@@ -828,7 +835,7 @@ Then no vertices will be marked.
 
 Step 4. Delete all unmarked vertices outside of the vertex cover:
 
-All of the vertices out of $X$ are unmarked and will be removed. Then the output(kernel) is the set
+All of the vertices out of $X$ are unmarked and will be removed. Then the output (kernel) is the set
 $\{v_1 , v_2 , v_3 , v_4 , v_5 , v_{11}\}$:
 
 
@@ -1157,14 +1164,14 @@ Concerning the figure, the graph is $3$-colorable.
 \end{proof}
 
 
-DSATUR is a graph coloring algorithm created by Daniel Br\'elaz \cite{brelaz} in 1979. Algorithm DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy search. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color. 
+DSATUR is a graph coloring algorithm created by Daniel Br\'elaz \cite{brelaz} in 1979. Algorithm DSATUR is one of several heuristic algorithms which try to find the best possible solution by ordering nodes properly before the greedy coloring. The Greedy coloring method is the simplest algorithm which takes an ordering of nodes of a graph and colors these with the smallest possible color. 
 
 Turner \cite{turner} proved that the run time for the heuristic algorithm DSATUR could be $\mathcal{O}(m \log n)$, for a graph with $n$ vertices and $m$ edges.
 
 At first, one definition is needed:
 
 \begin{defi}
-Let $G$ be a simple and partially colored graph. The saturation degree of a vertex is the number of different colors to which it is adjacent (colored vertices).\cite{brelaz}
+Let $G$ be a simple and partially colored graph. The {\bf saturation degree} of a vertex is the number of different colors to which it is adjacent (colored vertices).\cite{brelaz}
 \end{defi}
 
 In DSATUR algorithm (from {\bf d}egree {\bf sat}uration), nodes with higher degree of saturation are picked first, this yields a specific ordering of nodes for backtracking.
