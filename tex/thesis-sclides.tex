@@ -57,24 +57,22 @@
 
 
 
-\begin{frame}{Definitions}
+\begin{frame}{Definitions-Vertex coloring}
 
 
 \begin{definition}
-A vertex coloring is an assignment of labels or colors to each
-vertex of a graph such that no edge connects two vertices with the same color.
-
-The chromatic number of a graph is the smallest number of colors needed for
-vertex coloring and denoted by $\chi(G)$. 
-
-A vertex coloring of a graph with $k$ or fewer colors is known as a $k$-coloring. A proper $k$-coloring is an assignment of $k$ colors to the vertices of a graph so that no two adjacent vertices have the same color. 
-
-A proper $k$-coloring of a graph $G$ can be shown as a function $f: V(G) \to \{1, 2, 3, . . . , k\}$ such that adjacent vertices get different colors, namely in a proper coloring, for all edges $\{u, v\}$ we have $f(u) \not= f(v)$.
+A \color{red} vertex coloring \color{black} is an assignment of colors to each vertex of a graph such that no edge connects two vertices with the same  color.
+\end{definition}
+\begin{definition}
+The \color{red} chromatic number \color{black} of a graph is the smallest number of colors needed for vertex coloring and denoted by $\chi(G)$. 
+\end{definition}
+\begin{definition}
+A \color{red} proper $k$-coloring \color{black} is an assignment of $k$ colors to the vertices of a graph so that no two adjacent vertices have the same color: $f: V(G) \to \{1, 2, 3, . . . , k\}$, for all edges $\{u, v\}$ we have $f(u) \not= f(v)$.
 \end{definition}
 \end{frame}
 
 
-\begin{frame}{Definitions}
+\begin{frame}{Example-Vertex coloring}
 \begin{example}
 The petersen graph is $3$-colorable:
 
@@ -91,6 +89,86 @@ The petersen graph is $3$-colorable:
 \end{example}
 \end{frame}
 
+\begin{frame}{Definitions-Vertex cover}
+\begin{definition}
+A \color{red} vertex cover \color{black} $V'$ of a graph is a subset of $V$ such that for every edge $uv \in E$ , $u \in V'$ or $v \in V'$ , that means every edge has at least one endpoint in the vertex cover. 
+\end{definition}
+\begin{definition}
+The \color{red} minimum vertex cover \color{black} problem is the problem of finding a vertex  cover with minimum number of vertices in a given graph. The size of minimum vertex cover is called the vertex cover number and denoted by $\tau(G)$ .
+\end{definition}
+\end{frame}
+
+\begin{frame}{Example-Vertex cover}
+\begin{example}
+Vertex cover:
+\begin{center}
+\begin{tikzpicture}
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v1) at (0,0.2) {$v_1$};
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v2) at (1,1) {$v_2$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v3) at (1,-0.5) {$v_3$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v4) at (2.5,1) {$v_4$};
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v5) at (2.5,-0.5) {$v_5$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v6) at (4,1) {$v_6$};
+
+\draw (v1)--(v2)--(v4)--(v6);
+\draw (v1)--(v3)--(v2);
+\draw (v3)--(v5)--(v4);
+\end{tikzpicture}
+
+\end{center}
+
+
+Min vertex cover:
+\begin{center}
+\begin{tikzpicture}
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v1) at (7,0.2) {$v_1$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v2) at (8,1) {$v_2$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v3) at (8,-0.5) {$v_3$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v4) at (9.5,1) {$v_4$};
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v5) at (9.5,-0.5) {$v_5$};
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v6) at (11,1) {$v_6$};
+
+\draw (v1)--(v2)--(v4)--(v6);
+\draw (v1)--(v3)--(v2);
+\draw (v3)--(v5)--(v4);
+\end{tikzpicture}
+\end{center}
+\end{example}
+\end{frame}
+
+\begin{frame}{Definitions-Clique}
+\begin{definition}
+A \color{red} clique \color{black} in a graph is a subset of vertices such that every two distinct vertices are adjacent. 
+
+A \color{red} maximal clique \color{black} is a clique that cannot be extended by adding one more adjacent vertex. 
+\end{definition}
+\begin{definition}
+A \color{red} maximum clique \color{black} is a clique that has the maximum possible number of vertices. The clique number, $\omega(G)$, is the number of vertices in a maximum clique of $G$. 
+\end{definition}
+
+\end{frame}
+
+\begin{frame}{Example-Clique}
+\begin{example}
+\begin{center}
+\begin{tikzpicture}
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v1) at (0,0.2) {$v_1$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v2) at (1,1) {$v_2$};
+\node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v3) at (1,-0.5) {$v_3$};
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v4) at (2.5,1) {$v_4$};
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v5) at (2.5,-0.5) {$v_5$};
+\node[circle,fill=gray,inner sep=1pt,minimum size=1mm] (v6) at (4,1) {$v_6$};
+
+\draw (v1)--(v2)--(v4)--(v6);
+\draw (v1)--(v3)--(v2);
+\draw (v3)--(v5)--(v4);
+\end{tikzpicture}
+\end{center}
+\end{example}
+\end{frame}
+
+
+\begin{comment}
 \begin{frame}{Propositional logic}
 \begin{definition}
 A propositional logic formula is constructed by some variables using operators AND ("$\land$"), OR ("$\lor$"), NOT ("$\lnot$") and parentheses. 
@@ -225,13 +303,14 @@ If $P \not= NP$, $NP$-hard problems cannot be solved in polynomial time.
 \caption{\tiny Euler diagram for $P$, $NP$, $NP$-hard and $NP$-complete set of problems}
 \end{figure}
 \end{frame}
+\end{comment}
 
 \begin{frame}{Parameterized Complexity}
 
 If we assume $P \not = NP$, for small parameter  $k$ (but large instance), we can use efficient exact algorithms. 
 
 \begin{definition}
-A parameterized problem is a pair $(\Pi, \kappa)$ in which $\Pi$ is a
+A \color{red} parameterized problem \color{black} is a pair $(\Pi, \kappa)$ in which $\Pi$ is a
 decision problem with instance set $\mathcal{I}$ and $\kappa : \mathcal{I} \to \mathbb{N}$, which is a polynomial
 time computable function, called parameter.
 \end{definition}
@@ -254,7 +333,7 @@ problem : Is there any vertex cover set in $G$ with maximum size of $k$?
 Let $(\Pi, \kappa)$ be a parameterized problem, $I\in\mathcal{I}$ an instance and $\kappa: \mathcal{I} \to \mathbb{N}$ a parameterization for $\Pi$:
 
 A polynomial time computable function $f : \mathcal{I} \times \mathbb{N} \to \mathcal{I} \times \mathbb{N}$ is called a
-kernelization for $(\Pi, \kappa)$ , if $f(I, \kappa(I)) = (I', \kappa(I'))$ such that it satisfies these 3 properties:
+\color{red} kernelization \color{black} for $(\Pi, \kappa)$ , if $f(I, \kappa(I)) = (I', \kappa(I'))$ such that it satisfies these 3 properties:
 
 \begin{enumerate}[(i)]
 \item For each $I \in \mathcal{I}$, $(I, \kappa(I))$ is a "YES"-instance of $\Pi$ iff $(I', \kappa(I'))$ is a "YES"-instance of $\Pi$.

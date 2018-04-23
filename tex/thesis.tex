@@ -46,10 +46,10 @@
 
 \theoremstyle{slplain}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{defi}{Definition}
-\newtheorem{rema}{Remark}
-\newtheorem{exam}{Example}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{rema}{Remark}[section]
+\newtheorem{exam}{Example}[section]
 
 
 \title{A programming approach to vertex coloring by kernelization}
@@ -931,7 +931,7 @@ As discussed in section \ref{comp}, we need to prove both of these:
 
 A given $3$-coloring can be easily validated in linear time by any means of traversing the graph (DFS or BFS) and keeping track of end point colors, hence $3$-COLORING is in $NP$.  
 
-For prove of $NP$-hardness, a reduction from $3$-SAT \cite{karp} is used. In order to do the reduction, we need to construct a graph $G_\varphi$ correspondence to a $3$-CNF formula $\varphi$ with $n$ literals $t_1, t_2,\dots, t_n$ and $m$ clauses $C_1, C_2, \dots, C_m$. We should prove $G_\varphi$ is $3$-colorable iff $\varphi$ is satisfiable. The graph will contain two vertices $v_i$ and $\bar{v_i}$ for each literal $t_i$. We add three vertices $a$, $b$ and $c$ made a triangle to the graph and connect $v_i$ and $\bar{v_i}$ to vertex $c$ for each $i$. 
+For prove of $NP$-hardness, a reduction from $3$-SAT \cite{karp} is used. In order to do the reduction, we need to construct a graph $G_\varphi$ correspondence to a $3$-CNF formula $\varphi$ with $n$ literals $t_1, t_2,\dots, t_n$ and $m$ clauses $C_1, C_2, \dots, C_m$. We should prove $G_\varphi$ is $3$-colorable iff $\varphi$ is satisfiable. The graph will contain two adjacent  vertices $v_i$ and $\bar{v_i}$ for each literal $t_i$. We add three vertices $a$, $b$ and $c$ made a triangle to the graph and connect $v_i$ and $\bar{v_i}$ to vertex $c$ for each $i$. 
 
 
 
@@ -1281,7 +1281,7 @@ Therefore, it is very important that size of a graph can be somehow reduced.
 Kernelization method discussed in this thesis, can potentially transform some large graphs to relatively small
 graphs. 
 
-Before paying attention to some computational results, we should explain how to solve ILP for vertex cover as mentioned in chapter \ref{vertex_cover}.
+Before dealing with some computational results, we should explain how to solve ILP for vertex cover as mentioned in chapter \ref{vertex_cover}.
 
 We should make a model with AMPL\cite{ampl} for vertex cover restricted by
 maximal cliques, and solving it with CPLEX\cite{cplex} for some samples.
@@ -1610,9 +1610,20 @@ As we expected, it can be seen in the table, in most cases the first min vertex 
 \section{Conclusion}
 
 \subsection{Summary}
-In this thesis, we presented a special kernelization by using vertex cover for vertex coloring. Although this kernelization's algorithm was offered earlier, we improved it to reach a better result. In addition, we focused on computational part of it by means of programming in Python. As we needed, we modeled vertex cover by integer linear programming (ILP) restricted by maximal clique, and we got the exact vertex cover by using AMPL and CPLEX. For vertex coloring, we used the exact algorithm DSATUR-based Branch and Bound. As we saw in computational experiments chapter, it is an exact but slow algorithm, hence the kernelization can be very useful using this algorithm. 
+In this thesis, we presented a special kernelization by using vertex cover for vertex coloring. Although this kernelization's algorithm was offered earlier, we improved it to reach a better result. 
+
+In addition, we focused on computational part of it by means of programming in Python. 
+
+As we needed, we modeled vertex cover by integer linear programming (ILP) restricted by maximal clique, and we got the exact vertex cover by using AMPL and CPLEX. 
+
+For vertex coloring, we used the exact algorithm DSATUR-based Branch and Bound. As we saw in computational experiments chapter, it is an exact but slow algorithm, hence the kernelization can be very useful using this algorithm. 
 \subsection{Future Work}
-We focused on kernelization, its implementation, vertex cover and DSATUR-based Branch and Bound algorithm. We compared the size of kernel with the original graph and also time of coloring before the kernelization with time of kernelization plus time of coloring the kernel. As we saw, some graphs were very good kernelized, their kernel were small enough and also their coloring time were reduced considerably, while some other graphs didn't have good kernels therefore, the overall coloring time for them were more than the original ones. It could be investigated which kind of graphs are from the first group and which graphs from the latter and why. It might be probable to identify some indexes in the graph and relate performance of kernelization to them.
+We focused on kernelization, its implementation, vertex cover and DSATUR-based Branch and Bound algorithm. We compared the size of the kernel with the original graph and also time of coloring before the kernelization with time of kernelization plus time of coloring the kernel.
+
+As we saw, some graphs were very good kernelized, their kernel were small enough and also their coloring time were reduced considerably, while some other graphs didn't have good kernels, and the overall coloring time for them were more than the original ones. 
+
+It could be investigated which kind of graphs are from the first group and which graphs from the latter and why. It might be probable to identify some indexes in the graph and relate performance of kernelization to them.
+
 \afterpage{\null\newpage}
 
 \clearpage
