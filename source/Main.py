@@ -6,10 +6,9 @@ import basic
 
 
 from networkx.algorithms.approximation import min_weighted_vertex_cover
-e =7
 
-#def findsubsets(S,k):
-#    return set(itertools.combinations(S, k))
+"q-coloring is investigated for q = e"
+e =7
 
 G = basic.G
 
@@ -135,9 +134,6 @@ def exact_dsatur(G, clique, order, heu_coloring):
 
 
 
-
-
-
 def find_biggest_clique(G):
     max_cliques = np.array(list(nx.find_cliques(G)))
     mxn = max([len(c) for c in max_cliques])
@@ -146,111 +142,47 @@ def find_biggest_clique(G):
             return i
 
 
-#d = []
-
-
 
 start = time.clock()
 
 
-
-#d = nx.coloring.greedy_color(G, strategy=nx.coloring.strategy_saturation_largest_first)
-#print ("d= ",d)
-#print(max(d.values())+1)
+"finding maximal clique"
 clique = find_biggest_clique(G)
 
+"finding an order with DSATUR"
 d, order = modified_greedy_coloring.greedy_color(G, clique, strategy="DSATUR")
 
-
-#nx.draw(G)
-
 start_time = time.time()
+"exact coloring"
 coloring =  exact_dsatur(G, clique, order, d)
 end_time = time.time()
 print ("elapsed time for coloring before kernelization=", (end_time - start_time) * 1000)
-print (coloring)
-print  (max(coloring.items(), key=lambda k: k[1])[1])
+print ("coloring before kernelization = ", coloring)
+print ("chromatic number = ",max(coloring.items(), key=lambda k: k[1])[1])
 
-
-print ( "G ", G.edges())
-
-
-
-
+"2-approximate vertex cover"
 v_approx = min_weighted_vertex_cover(G)
-print ("v_approx = " , len(v_approx))
+print ("2-approximate vertex cover length = " , len(v_approx))
 
+
+"exact vertex cover from ILP"
 vertex_cover = []
 
 with open('output.out') as g:
     for line in g:
         vertex_cover.append(int(line))
 
-print("vertex cover ", vertex_cover)
-print("length =" ,len(vertex_cover))
+print("exact vertex cover ", vertex_cover)
+print("exact vertex cover length =" ,len(vertex_cover))
 
-#S = findsubsets(v,k)
-
-
+"vertices outside of the approximate vertex cover"
 outside_nodes_approx = set(G.nodes())-set(v_approx)
 
+"vertices outside of the exact vertex cover"
 outside_nodes = set(G.nodes())-set(vertex_cover)
 
-'''
-for item in outside_nodes:
-    for s in S :
-        flag = False
-        for y in s:
-            if not G.has_edge(y,item):
-              flag = True
-        if not flag:
-            X.append(item)
-    if item not in X:
-      G.remove_node(item)
-
-'''
 
 
-
-'''
-for out_item in outside_nodes:
-    for s in S:
-        for index,item in enumerate(G.adjacency_list()):
-            if set(s) <= set(item) :
-                X.append(index+1)
-       
-    if out_item not in X:
-        G.remove_node(out_item)
-'''
-
-
-
-
-'''
-for out_item in outside_nodes:
-    if len(adj_list[out_item-1]) >= k:
-        counter = 0
-        for i in adj_list[out_item-1]:
-            if i in set(v):
-                counter += 1
-        if counter >= k:
-            X.append(out_item)
-
-for out_item in outside_nodes:
-    if out_item not in X:
-        G.remove_node(out_item)
-
-'''
-# print("node number of outside_nodes = " , len(outside_nodes))
-# print("outside nodes = ", outside_nodes)
-# print ("outside_approx ", outside_nodes_approx)
-'''
-def pick_random(s):
-    if s:
-        elem = s.pop()
-        s.add(elem)
-        return elem
-'''
 
 
 flag_list = []
@@ -259,6 +191,9 @@ X =[]
 
 
 start_time = time.time()
+
+
+"kernelization"
 
 for out_item in outside_nodes:
     if G[out_item] != []:
@@ -275,41 +210,31 @@ for out_item in outside_nodes:
 end_time = time.time()
 print ("elapsed time for kernelization =", (end_time - start_time) * 1000 )
 
-print("resulted node number ", G.number_of_nodes())
 
 G1 = nx.Graph()
 G1 = nx.convert_node_labels_to_integers(G,1)
 
-print ( "G1 ", G1.number_of_nodes())
-print (G1.edges)
-#map(lambda G.nodes: G.nodes, range(G.number_of_nodes()))
-#y = []
+print ( "number of vertices of the kernel graph = ", G1.number_of_nodes())
 
 
-#y = nx.coloring.greedy_color(G, strategy=nx.coloring.strategy_saturation_largest_first)
-
-#print("y = ", y)
-#print(max(y.values())+1)
-
-
-
+"finding maximal clique in the kernel"
 clique = find_biggest_clique(G1)
 
+"finding an order with DSATUR in the kernel"
 d, order = modified_greedy_coloring.greedy_color(G1, clique, strategy="DSATUR")
 
 
-#nx.draw(G)
-
 start_time = time.time()
+"exact coloring of the kernel"
 coloring =  exact_dsatur(G1, clique, order, d)
 end_time = time.time()
+
 print ("elapsed time for coloring after=", (end_time - start_time) * 1000 )
 print (coloring)
+
+"chromatic number of the kernel"
 print  (max(coloring.items(), key=lambda k: k[1])[1])
-#nx.draw(max_clique)
 
-
-# raw_input("Press Enter to continue...")
 
 
 

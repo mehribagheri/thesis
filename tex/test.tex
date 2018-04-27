@@ -1,0 +1,113 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper]{geometry}
+            
+\usepackage[shortlabels]{enumitem}
+\usepackage{amssymb}
+
+\usepackage[nottoc]{tocbibind}
+
+\usepackage{rotating}
+
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{abbrvnat}
+
+\usepackage{graphicx}
+
+\usepackage{float}
+\usepackage{blindtext}
+\usepackage{enumitem} 
+\usepackage{tikz}
+\usepackage{tkz-berge} 
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{afterpage}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{algpseudocode}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1.3em}
+\renewcommand{\baselinestretch}{1.5}
+
+
+\newtheoremstyle{slplain}% name
+  {2\baselineskip\@plus.5\baselineskip}% Space above
+  {2\baselineskip\@plus.5\baselineskip}% Space below
+  {\slshape}% Body font
+  {}%Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}%  Thm head font
+  {.}%       Punctuation after thm head
+  { }%      Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%       Thm head spec
+
+
+\theoremstyle{slplain}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{rema}{Remark}[section]
+\newtheorem{exam}{Example}[section]
+\begin{document}
+
+\newgeometry{left=0.5in,top=0.5in,bottom=0.8in}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+{\tiny \begin{turn}{90} graph filename($\chi$)\end{turn}} & {\tiny  $|V|$} & {\tiny $|E|$} & {\tiny $\tau(G)$} & {\tiny $q$} & {\tiny $\chi$} & {\tiny \begin{turn}{90} \shortstack{coloring time \\before kernelization} \end{turn}} & {\tiny $|V'|$} & {\tiny \begin{turn}{90}  \% smaller\end{turn}} & {\tiny \begin{turn}{90} \shortstack{time of \\ kernelization (1)}\end{turn}} & {\tiny $\chi'$} &{\tiny \begin{turn}{90} \shortstack{coloring time \\ after kernelization} (2)\end{turn}} & {\tiny \begin{turn}{90} sum of (1) and (2)\end{turn}}& {\tiny \begin{turn}{90}  \% faster\end{turn}} \\
+\hline
+{\small myciel3 (4)} & {\small $11$} & {\small $20$} & {\small $6$} & {\small $3$} & {\small $4$} & {\small $2.49$} & {\small $11$} & {\small $0$} & {\small $0.39$} & {\small $4$} & {\small $2.62$} & {\small $3.01$} & {\small $-20.88$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $4$} & {\small $2.61$} & {\small $6$}  & {\small $45.5$} & {\small $0.31$} & {\small $3$} & {\small $0.07$} & {\small $0.38$} & {\small $85.44$}\\
+\hline
+\hline
+{\small myciel5 (6)} & {\small $47$} & {\small $236$} & {\small $24$} & {\small $3$} & {\small $6$} & {\small $>5h$ } & {\small $24$} & {\small $48.93$} & {\small $0.51$}  & {\small $5$} & {\small $2982$} & {\small $2982.51$}  & {\small $>99.98$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $6$} & {\small $>5h$} & {\small $24$} & {\small $48.93$} & {\small $0.50$}  & {\small $5$} & {\small $2874$} & {\small $2874.5$}  & {\small $>99.98$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $6$} & {\small $>5h$} & {\small $29$}  & {\small $38.29$} & {\small $0.57$}  & {\small $5$} & {\small $8715$} & {\small $8715.57$}  & {\small $>99.95$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $6$} & {\small $>5h$} & {\small $29$}  & {\small $38.29$} & {\small $0.60$} & {\small $5$} & {\small $8713$} & {\small $8713.60$}  & {\small $>99.95$}\\
+\hline
+\hline
+{\small myciel4 (5)} & {\small $23$} & {\small $71$} & {\small $12$} & {\small $3$} & {\small $5$} & {\small $8973$} & {\small $12$}  & {\small $47.82$} & {\small $0.40$} & {\small $4$} & {\small $0.75$} & {\small $1.15$}  & {\small $99.98$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $5$} & {\small $8936$} & {\small $17$}  & {\small $26.08$} & {\small $0.56$} & {\small $4$} & {\small $2.15$} & {\small $2.71$}  & {\small $99.96$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $5$} & {\small $8836$} & {\small $17$}  & {\small $26.08$} & {\small $0.64$} & {\small $4$} & {\small $1.60$} & {\small $2.24$}  & {\small $99.97$}\\
+\hline
+\hline
+{\small queen5-5 (5)} & {\small $25$} & {\small $320$} & {\small $20$} & {\small $3$} & {\small $5$} & {\small $0.27$} & {\small $20$}  & {\small $20$} & {\small $0.33$} & {\small $4$} & {\small $0.39$} & {\small $0.72$}  & {\small $-166.6$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $5$} & {\small $0.31$} & {\small $20$}  & {\small $20$} & {\small $0.34$} & {\small $4$} & {\small $0.38$} & {\small $0.72$}  & {\small $-132.25$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $5$} & {\small $0.27$} & {\small $20$}  & {\small $20$} & {\small $0.33$} & {\small $4$} & {\small $0.39$} & {\small $0.72$}  & {\small $-166.6$}\\
+\hline
+\hline
+{\small queen6-6 (7)} & {\small $36$} & {\small $580$} & {\small $30$} & {\small $3$} & {\small $7$} & {\small $6511$} & {\small $30$}  & {\small $16.66$} & {\small $0.37$} & {\small $6$} & {\small $281$} & {\small $281.37$} & {\small $95.67$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $7$} & {\small $6487$} & {\small $30$}  & {\small $16.66$} & {\small $0.44$} & {\small $6$} & {\small $273$} & {\small $273.44$} & {\small $95.78$}\\
+\hline
+%{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $7$} & {\small $6391$} & {\small $30$} & {\small $0.38$} & {\small $6$} & {\small $273$} & {\small $273.38$}\\
+%\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $7$} & {\small $6706$} & {\small $30$}  & {\small $16.66$} & {\small $0.39$} & {\small $6$} & {\small $277$} & {\small $277.39$} & {\small $95.86$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $7$} & {\small $6496$} & {\small $30$}  & {\small $16.66$} & {\small $0.37$} & {\small $6$} & {\small $272$} & {\small $272.37$} & {\small $95.80$}\\
+\hline
+\hline
+{\small queen7-7 (7)} & {\small $49$} & {\small $952$} & {\small $42$} & {\small $3$} & {\small $7$} & {\small $2036$} & {\small $42$} & {\small $14.28$} & {\small $0.44$} & {\small $6$} & {\small $3299$} & {\small $3299.44$} & {\small $-62.05$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $7$} & {\small $2037$} & {\small $42$}  & {\small $14.28$} & {\small $0.37$} & {\small $6$} & {\small $3246$} & {\small $3246.37$} & {\small $-59.37$}\\
+\hline
+
+\hline
+\end{tabular}
+\end{center}
+
+\end{table}
+
+
+\end{document}

@@ -1,0 +1,134 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper]{geometry}
+            
+\usepackage[shortlabels]{enumitem}
+\usepackage{amssymb}
+
+\usepackage[nottoc]{tocbibind}
+
+\usepackage{rotating}
+
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{abbrvnat}
+
+\usepackage{graphicx}
+
+\usepackage{float}
+\usepackage{blindtext}
+\usepackage{enumitem} 
+\usepackage{tikz}
+\usepackage{tkz-berge} 
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{afterpage}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{algpseudocode}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1.3em}
+\renewcommand{\baselinestretch}{1.5}
+
+
+\newtheoremstyle{slplain}% name
+  {2\baselineskip\@plus.5\baselineskip}% Space above
+  {2\baselineskip\@plus.5\baselineskip}% Space below
+  {\slshape}% Body font
+  {}%Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}%  Thm head font
+  {.}%       Punctuation after thm head
+  { }%      Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%       Thm head spec
+
+
+\theoremstyle{slplain}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{rema}{Remark}[section]
+\newtheorem{exam}{Example}[section]
+\begin{document}
+
+\newgeometry{left=0.5in,top=0.5in,bottom=0.8in}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+{\tiny graph filename($\chi$)} & {\tiny number of vertices} & {\tiny number of edges} & {\tiny $\tau(G)$} & {\tiny $q$} & {\tiny \shortstack{vertices of the\\ kernel with $\tau(G)$}} & {\tiny $\tau'(G)$} & {\tiny \shortstack{vertices of the\\ kernel with $\tau'(G)$}}\\
+
+\hline
+{\small myciel3.col(4)} & {\small $11$} & {\small $20$} & {\small $6$} & {\small $3$} & {\small $11$} & {\small $10$} & {\small $11$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $6$} & {\small $10$} & {\small $10$}\\
+\hline
+\hline
+{\small myciel5.col(6)} & {\small $47$} & {\small $236$} & {\small $24$} & {\small $3$} & {\small $24$} & {\small $38$} & {\small $38$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $47$} & {\small $"$} & {\small $38$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $47$} & {\small $"$} & {\small $43$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $42$} & {\small $"$} & {\small $38$}\\
+\hline
+\hline
+{\small myciel4.col(5)} & {\small $23$} & {\small $71$} & {\small $12$} & {\small $3$} & {\small $12$} & {\small $18$} & {\small $18$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $17$} & {\small $"$} & {\small $23$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $17$} & {\small $"$} & {\small $18$}\\
+\hline
+\hline
+{\small queen5-5.col(5)} & {\small $25$} & {\small $320$} & {\small $20$} & {\small $3$} & {\small $25$} & {\small $24$} & {\small $24$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $25$} & {\small $"$} & {\small $24$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $25$} & {\small $"$} & {\small $24$}\\
+\hline
+\hline
+{\small queen6-6.col(7)} & {\small $36$} & {\small $580$} & {\small $30$} & {\small $3$} & {\small $36$} & {\small $34$} & {\small $34$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $36$} & {\small $"$} & {\small $34$}\\
+\hline
+%{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $36$} & {\small $"$} & {\small $34$}\\
+%\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $36$} & {\small $"$} & {\small $34$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $36$} & {\small $"$} & {\small $34$}\\
+\hline
+\hline
+{\small queen7-7.col(7)} & {\small $49$} & {\small $952$} & {\small $42$} & {\small $3$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $4$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $5$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+\hline
+%{\small "} & {\small "} & {\small "} & {\small "} & {\small $6$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+%\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $7$} & {\small $49$} & {\small $48$} & {\small $48$}\\
+\hline
+\hline
+{\small mulsol.i.3.col(31)} & {\small $184$} & {\small $3916$} & {\small $98$} & {\small $6$} & {\small $149$} & {\small $126$} & {\small $126$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $31$} & {\small $105$} & {\small $126$} & {\small $128$}\\
+\hline
+\hline
+{\small zeroin.i.1.col(49)} & {\small $211$} & {\small $4100$} & {\small $91$} & {\small $49$} & {\small $95$} & {\small $104$} & {\small $105$}\\
+\hline
+\hline
+{\small anna.col(11)} & {\small $138$} & {\small $986$} & {\small $58$} & {\small $11$} & {\small $59$} & {\small $96$} & {\small $97$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $3$} & {\small $74$} & {\small $96$} & {\small $102$} \\
+\hline
+\hline
+{\small fpsol2.i.2.col(30)} & {\small $451$} & {\small $8691$} & {\small $190$} & {\small $3$} & {\small $190$} & {\small $260$} & {\small $260$}\\
+\hline
+{\small "} & {\small "} & {\small "} & {\small "} & {\small $30$} & {\small $198$} & {\small $260$} & {\small $262$}\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{table}
+\end{document}

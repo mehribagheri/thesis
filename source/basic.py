@@ -1,3 +1,5 @@
+"reading the graph from file and assign it to G"
+
 import networkx as nx
 
 def read_graph_from_file(filename, zero_based = False):

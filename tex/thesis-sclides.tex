@@ -3,7 +3,10 @@
 \usepackage{tikz}
 \usepackage{tkz-berge} 
 \usepackage{verbatim}
+
 \usepackage{algorithm,algorithmic}
+\usepackage{beamerthemesplit}
+\usepackage{graphicx}
 \mode<presentation>
 
 {
@@ -25,7 +28,7 @@
 \end{frame}
 
 
-\begin{frame}{What this thesis is about?}
+\begin{frame}{What this thesis is all about?}
 \begin{itemize}
 
 \item Graph vertex coloring
@@ -38,7 +41,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Introduction}
+\begin{frame}{Sections}
 
 
 \begin{enumerate}
@@ -51,13 +54,13 @@
 \item An exact algorithm for vertex coloring
 
 \item Computational experiments
-\item conclusion
+\item Conclusion
 \end{enumerate}
 \end{frame}
 
 
 
-\begin{frame}{Definitions-Vertex coloring}
+\begin{frame}{Definitions}
 
 
 \begin{definition}
@@ -69,10 +72,14 @@ The \color{red} chromatic number \color{black} of a graph is the smallest number
 \begin{definition}
 A \color{red} proper $k$-coloring \color{black} is an assignment of $k$ colors to the vertices of a graph so that no two adjacent vertices have the same color: $f: V(G) \to \{1, 2, 3, . . . , k\}$, for all edges $\{u, v\}$ we have $f(u) \not= f(v)$.
 \end{definition}
+
+\begin{theorem}
+$k$-COLORING for $k \geq 3$ is $NP$-complete.
+\end{theorem}
 \end{frame}
 
 
-\begin{frame}{Example-Vertex coloring}
+\begin{frame}{Example}
 \begin{example}
 The petersen graph is $3$-colorable:
 
@@ -89,7 +96,11 @@ The petersen graph is $3$-colorable:
 \end{example}
 \end{frame}
 
-\begin{frame}{Definitions-Vertex cover}
+\begin{frame}{Definitions}
+\begin{definition}
+An \color{red} induced subgraph \color{black} of a graph $G$ is another graph, which constitutes from a subset of the vertices of the graph $G$ and all of the edges connecting pairs of vertices in that subset. For $X \subseteq V(G)$, the subgraph induced by $X$ is denoted by $G[X]$.
+\end{definition}
+
 \begin{definition}
 A \color{red} vertex cover \color{black} $V'$ of a graph is a subset of $V$ such that for every edge $uv \in E$ , $u \in V'$ or $v \in V'$ , that means every edge has at least one endpoint in the vertex cover. 
 \end{definition}
@@ -98,7 +109,7 @@ The \color{red} minimum vertex cover \color{black} problem is the problem of fin
 \end{definition}
 \end{frame}
 
-\begin{frame}{Example-Vertex cover}
+\begin{frame}{Example}
 \begin{example}
 Vertex cover:
 \begin{center}
@@ -136,7 +147,7 @@ Min vertex cover:
 \end{example}
 \end{frame}
 
-\begin{frame}{Definitions-Clique}
+\begin{frame}{Definitions}
 \begin{definition}
 A \color{red} clique \color{black} in a graph is a subset of vertices such that every two distinct vertices are adjacent. 
 
@@ -148,7 +159,7 @@ A \color{red} maximum clique \color{black} is a clique that has the maximum poss
 
 \end{frame}
 
-\begin{frame}{Example-Clique}
+\begin{frame}{Example}
 \begin{example}
 \begin{center}
 \begin{tikzpicture}
@@ -305,10 +316,18 @@ If $P \not= NP$, $NP$-hard problems cannot be solved in polynomial time.
 \end{frame}
 \end{comment}
 
+\begin{frame}{Complexity}
+
+\begin{definition}
+For an instance $I$ from instance set $\mathcal{I}$, a \color{red} decision problem \color{black} $\Pi$ is a YES-NO question which asks if
+there is at least one solution for the problem $\Pi$ in $I$.
+\end{definition}
+\begin{example}
+For a graph $G$ and an integer $k$, does there exist at least one clique of size $k$ in the graph? 
+
+\end{example}
+\end{frame}
 \begin{frame}{Parameterized Complexity}
-
-If we assume $P \not = NP$, for small parameter  $k$ (but large instance), we can use efficient exact algorithms. 
-
 \begin{definition}
 A \color{red} parameterized problem \color{black} is a pair $(\Pi, \kappa)$ in which $\Pi$ is a
 decision problem with instance set $\mathcal{I}$ and $\kappa : \mathcal{I} \to \mathbb{N}$, which is a polynomial
@@ -318,11 +337,11 @@ time computable function, called parameter.
 \begin{example}
 Parameterized-vertex cover, denoted $k$-VERTEX COVER:
 
-Input : graph $G = (V, E)$ and a number $k \in \mathbb{N}$
+Input: graph $G = (V, E)$ and a number $k \in \mathbb{N}$
 
-parameter : $k$
+parameter: $k$
 
-problem : Is there any vertex cover set in $G$ with maximum size of $k$?
+problem: Is there any vertex cover set in $G$ with maximum size of $k$?
 \end{example}
 
 \end{frame}
@@ -343,7 +362,7 @@ A polynomial time computable function $f : \mathcal{I} \times \mathbb{N} \to \ma
 \item $\kappa(I')\leq \kappa(I)$.
 \end{enumerate}
 
-$I'$ is kernel of $(\Pi, \kappa)$ and $f'(\kappa(I))$ is called the size of the kernel.
+$I'$ is \color{red} kernel \color{black} of $(\Pi, \kappa)$ and $f'(\kappa(I))$ is called the size of the kernel.
 
 \end{definition}
 
@@ -382,7 +401,7 @@ The problem can be solved in time $\mathcal{O}(2^{2k^2} + |V| + |E|)$.
 
 
 \begin{frame}{Kernelization of the Vertex Coloring}
-A kernelization on $3$-coloring using vertex cover:
+A kernelization on $3$-coloring using vertex cover by Bart. Jansen, (Bonn, 2016):
 
 \begin{enumerate}
 \item Compute $2$-approximate vertex cover $X$
@@ -396,7 +415,7 @@ A kernelization on $3$-coloring using vertex cover:
 \item Output resulting $G'$ on $n'$ vertices:
 
 \begin{center}
-$n' \leq |X| + |X|^3 \leq 2k + (2k)^3$
+$n' \leq |X| + |X|^3$
 \end{center}
 \end{enumerate}
 
@@ -408,7 +427,40 @@ $G$ is $q$-colorable iff $G'$ is $q$-colorable. Run time for the algorithm
 is $\mathcal{O}(min|X|^q)$.
 \end{theorem}
 \end{frame}
+\begin{frame}{Proof}
+\begin{itemize}
+\item $G$ a graph and $X$ it's vertex cover, $|X| = k$. 
 
+\item Create an equivalent instance $G'$:
+\begin{itemize}
+\item At first, let be $G' = G[X]$. 
+
+\item For each subset $S \subseteq X$ of size $q$, mark a common neighbor of $S$ if there is such a vertex.
+\item Delete all unmarked vertices out of $X$. 
+\item Add marked vertices to $G'$. 
+
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}{Proof-continue}
+Proof of the equivalency: 
+\begin{itemize}
+
+\item Proper $q$-coloring $f'$ of $G'$ $\longrightarrow$ proper partial $q$-coloring $f$ of $G[X]$ 
+and $f$ can be extended to the rest of $G$.
+
+\item The other direction is obvious.
+
+
+\end{itemize}
+We represent the instance $G'$ in $\mathcal{O}(|X|^q) = \mathcal{O}(k^q)$ bits.
+\begin{itemize}
+\item Store adjacency matrix of $G'[X]$ in exactly $k^2$ bits. 
+
+\item Then for each subset $S$ of $X$ of size $q$ (they are less than $k^q$) store exactly one bit. 
+\end{itemize}
+The run time of the algorithm is less than $k^2 + k^q$.
+\end{frame}
 \begin{frame}{Revision of the algorithm}
 
 \begin{algorithm}[H]
@@ -470,6 +522,7 @@ Every edge is also a clique:
 
 
 \end{frame}
+\begin{comment}
 
 \begin{frame}{Maximal Clique}
 
@@ -497,7 +550,7 @@ Every edge is also a clique:
 \end{algorithm}
 
 \end{frame}
-
+\end{comment}
 \begin{frame}{An Example}
 This graph has $11$ vertices and $20$ edges and is known to be $4$-colorable:
 
@@ -674,11 +727,8 @@ For $q = 3$, and the vertex cover $X$, mark these vertices: $\{v_6, v_7, v_8, v_
 \end{itemize}
 \end{frame}
 
-\begin{frame}{$k$-COLORING}
-\begin{theorem}
-$k$-COLORING for $k \geq 3$ is $NP$-complete.
-\end{theorem}
 
+\begin{comment}
 To prove this theorem, it is enough to prove it for $k = 3$.
 
 \begin{itemize}
@@ -886,6 +936,8 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \end{itemize}
 \end{frame}
 
+\end{comment}
+
 \begin{frame}{DSATUR}
 \begin{itemize}
 
@@ -908,8 +960,8 @@ Let $G$ be a simple and partially colored graph. The saturation degree of a vert
 
 \STATE Arrange the vertices by decreasing order of degrees.\\
 \STATE Color a vertex of maximal degree with color $1$.\\
-\STATE Choose a vertex with a maximal saturation degree. If there is an
-\STATE  equality, break the tie by choosing any vertex of maximal degree in the uncolored
+\STATE Choose a vertex with a maximal saturation degree. If there is an 
+  equality, break the tie by choosing any vertex of maximal degree in the uncolored
 subgraph.\\
 \STATE Color the chosen vertex with the least possible (lowest numbered)
 color.\\
@@ -1004,6 +1056,21 @@ subject to clique {c in Idx}:
 sum {(a, b) in Q: a=c} x[b] >= card{(a,b) in Q: a=c}-1;
 \end{verbatim}
 
+\end{frame}
+
+\begin{frame}
+\begin{center}
+
+\includegraphics[page=1,width=0.8\textwidth]{table1.pdf}
+
+\end{center}
+\end{frame}
+\begin{frame}
+\begin{center}
+
+\includegraphics[page=1,width=0.7\textwidth]{table2.pdf}
+
+\end{center}
 \end{frame}
 
 \begin{frame}{Conclusion}
