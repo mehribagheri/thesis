@@ -6,39 +6,17 @@
 \usetikzlibrary{shapes.geometric, arrows,chains}
 
 \tikzset{
-  startstop/.style={
-    rectangle, 
-    rounded corners,
-    minimum width=3cm, 
-    minimum height=1cm,
-    align=center, 
-    draw=black, 
-    fill=red!30
-    },
-  process/.style={
-    rectangle, 
-    minimum width=3cm, 
-    minimum height=1cm, 
-    align=center, 
-    draw=black, 
-    fill=blue!30
-    },
-  decision/.style={
-    rectangle, 
-    minimum width=3cm, 
-    minimum height=1cm, align=center, 
-    draw=black, 
-    fill=green!30
-    },
-  arrow/.style={thick,->,>=stealth},
-  dec/.style={
-    ellipse, 
-    align=center, 
-    draw=black, 
-    fill=green!30
-    },
+  treenode/.style = {shape=rectangle, rounded corners,
+                     draw, anchor=center,
+                     text width=5em, align=center,
+                     top color=white, bottom color=blue!20,
+                     inner sep=1ex},
+  decision/.style = {treenode, diamond, inner sep=0pt},
+  root/.style     = {treenode, font=\Large, bottom color=red!30},
+  env/.style      = {treenode, font=\ttfamily\normalsize},
+  finish/.style   = {root, bottom color=green!40},
+  dummy/.style    = {circle,draw}
 }
-
 
 \usepackage{tkz-berge} 
 \usepackage{verbatim}
@@ -71,13 +49,13 @@
 \begin{itemize}
 
 \item Graph vertex coloring
-\pause
+ 
 \item Using kernelization to solve vertex coloring with reduction of size of the  graph
-\pause
+ 
 \item Demonstrate kernelization in some sample graphs in practice
-\pause
+ 
 \item "improved DSATUR-based Branch and Bound" algorithm
-\pause
+ 
 \item Python is used as programming language
 
 \end{itemize}
@@ -88,18 +66,18 @@
 
 \begin{enumerate}
 \item Some definitions
-\pause
+ 
 \item Special kernelization for vertex coloring
-\pause
+ 
 
 \item Min vertex cover
-\pause
+ 
 \item An example
-\pause
+ 
 \item An exact algorithm for vertex coloring
-\pause
+ 
 \item Computational experiments
-\pause
+ 
 \item Conclusion
 \end{enumerate}
 \end{frame}
@@ -112,15 +90,15 @@
 \begin{definition}
 A \color{red} vertex coloring \color{black} is an assignment of colors to each vertex of a graph such that no edge connects two vertices with the same  color.
 \end{definition}
-\pause
+ 
 \begin{definition}
 The \color{red} chromatic number \color{black} of a graph is the smallest number of colors needed for vertex coloring and denoted by $\chi(G)$. 
 \end{definition}
-\pause
+ 
 \begin{definition}
 A \color{red} proper $k$-coloring \color{black} is an assignment of $k$ colors to the vertices of a graph so that no two adjacent vertices have the same color: $f: V(G) \to \{1, 2, 3, . . . , k\}$, for all edges $\{u, v\}$ we have $f(u) \not= f(v)$.
 \end{definition}
-\pause
+ 
 \begin{theorem}
 $k$-COLORING for $k \geq 3$ is $NP$-complete.
 \end{theorem}
@@ -148,11 +126,11 @@ The petersen graph is $3$-colorable:
 \begin{definition}
 An \color{red} induced subgraph \color{black} of a graph $G$ is another graph, which constitutes from a subset of the vertices of the graph $G$ and all of the edges connecting pairs of vertices in that subset. For $X \subseteq V(G)$, the subgraph induced by $X$ is denoted by $G[X]$.
 \end{definition}
-\pause
+ 
 \begin{definition}
 A \color{red} vertex cover \color{black} $V'$ of a graph is a subset of $V$ such that for every edge $uv \in E$ , $u \in V'$ or $v \in V'$ , that means every edge has at least one endpoint in the vertex cover. 
 \end{definition}
-\pause
+ 
 \begin{definition}
 The \color{red} minimum vertex cover \color{black} problem is the problem of finding a vertex  cover with minimum number of vertices in a given graph. The size of minimum vertex cover is called the vertex cover number and denoted by $\tau(G)$ .
 \end{definition}
@@ -176,7 +154,7 @@ Vertex cover:
 \end{tikzpicture}
 
 \end{center}
-\pause
+ 
 
 Min vertex cover:
 \begin{center}
@@ -202,7 +180,7 @@ A \color{red} clique \color{black} in a graph is a subset of vertices such that 
 
 A \color{red} maximal clique \color{black} is a clique that cannot be extended by adding one more adjacent vertex. 
 \end{definition}
-\pause
+ 
 \begin{definition}
 A \color{red} maximum clique \color{black} is a clique that has the maximum possible number of vertices. The clique number, $\omega(G)$, is the number of vertices in a maximum clique of $G$. 
 \end{definition}
@@ -372,7 +350,7 @@ If $P \not= NP$, $NP$-hard problems cannot be solved in polynomial time.
 For an instance $I$ from instance set $\mathcal{I}$, a \color{red} decision problem \color{black} $\Pi$ is a YES-NO question which asks if
 there is at least one solution for the problem $\Pi$ in $I$.
 \end{definition}
-\pause
+ 
 \begin{example}
 For a graph $G$ and an integer $k$, does there exist at least one clique of size $k$ in the graph? 
 
@@ -385,7 +363,7 @@ A \color{red} parameterized problem \color{black} is a pair $(\Pi, \kappa)$ in w
 decision problem with instance set $\mathcal{I}$ and $\kappa : \mathcal{I} \to \mathbb{N}$, which is a polynomial
 time computable function, called parameter.
 \end{definition}
-\pause
+ 
 \begin{example}
 Parameterized-vertex cover, denoted $k$-VERTEX COVER:
 
@@ -402,18 +380,18 @@ problem: Is there any vertex cover set in $G$ with maximum size of $k$?
 
 \begin{definition}
 Let $(\Pi, \kappa)$ be a parameterized problem, $I\in\mathcal{I}$ an instance and $\kappa: \mathcal{I} \to \mathbb{N}$ a parameterization for $\Pi$:
-\pause
+ 
 A polynomial time computable function $f : \mathcal{I} \times \mathbb{N} \to \mathcal{I} \times \mathbb{N}$ is called a
 \color{red} kernelization \color{black} for $(\Pi, \kappa)$ , if $f(I, \kappa(I)) = (I', \kappa(I'))$ such that it satisfies these 3 properties:
-\pause
+ 
 \begin{enumerate}[(i)]
 \item For each $I \in \mathcal{I}$, $(I, \kappa(I))$ is a "YES"-instance of $\Pi$ iff $(I', \kappa(I'))$ is a "YES"-instance of $\Pi$.
-\pause
+ 
 \item There is a function $f': \mathbb{N} \to \mathbb{N}$, such that $|I'| \leq f'(\kappa(I))$
-\pause
+ 
 \item $\kappa(I')\leq \kappa(I)$.
 \end{enumerate}
-\pause
+ 
 $I'$ is \color{red} kernel \color{black} of $(\Pi, \kappa)$ and $f'(\kappa(I))$ is called the size of the kernel.
 
 \end{definition}
@@ -427,19 +405,19 @@ Kernelization of the vertex cover problem:
 Input: Graph $G$ and a positive integer $k$ 
 
 Output: A vertex cover set with at most size $k$
-\pause
+ 
 
 \begin{itemize}
 \item If $v$ is an isolated vertex of $G$, we remove $v$. The new instance is $(G - v , k)$.
 
-\pause
+ 
 \item If $G$ contains a vertex $v$ of degree greater than $k$, remove $v$ from the graph and decrease $k$ by one. The new instance is $(G - v , k - 1)$.
-\pause
+ 
 \item If neither of the previous two rules can be applied anymore,
-\pause
+ 
 \begin{itemize}
 \item If the graph still has more than $k^2$ edges, the problem has no solution.
-\pause
+ 
 \item If the graph has at most $k^2$ edges, it has at most $2 k^2$ vertices, hence the size of the kernel is at most $2 k^2$.
 \end{itemize}
 
@@ -447,7 +425,7 @@ Output: A vertex cover set with at most size $k$
 \end{itemize}
 
 
-\pause
+ 
 The problem can be solved in time $\mathcal{O}(2^{2k^2} + |V| + |E|)$.
 \end{example}
 \end{frame}
@@ -455,29 +433,29 @@ The problem can be solved in time $\mathcal{O}(2^{2k^2} + |V| + |E|)$.
 
 \begin{frame}{Kernelization of the Vertex Coloring}
 A kernelization on $3$-coloring using vertex cover by Bart. Jansen, (Bonn, 2016):
-\pause
+ 
 \begin{enumerate}
 \item Compute $2$-approximate vertex cover $X$
-\pause
+ 
 \item $\forall S\subseteq X$ of size $3$
-\pause
+ 
 \begin{itemize}
 \item Mark a common neighbor of $S$
 \end{itemize}
-\pause
+ 
 \item Delete all unmarked $v \not\in X$
-\pause
+ 
 \item Output resulting $G'$ on $n'$ vertices:
 
 \begin{center}
-\pause
+ 
 $n' \leq |X| + |X|^3$
 \end{center}
 \end{enumerate}
-\pause
+ 
 $G$ is $3$-colorable iff $G'$ is $3$-colorable. Run time for the algorithm is $\mathcal{O}(min|X|^3)$.
 
-\pause
+ 
 \begin{theorem}{\label{main theorem}}
 $G$ is $q$-colorable iff $G'$ is $q$-colorable. Run time for the algorithm
 is $\mathcal{O}(min|X|^q)$.
@@ -487,16 +465,16 @@ is $\mathcal{O}(min|X|^q)$.
 \begin{frame}{Proof}
 \begin{itemize}
 \item $G$ a graph and $X$ it's vertex cover, $|X| = k$. 
-\pause
+ 
 \item Create an equivalent instance $G'$:
-\pause
+ 
 \begin{itemize}
 \item At first, let be $G' = G[X]$. 
-\pause
+ 
 \item For each subset $S \subseteq X$ of size $q$, mark a common neighbor of $S$ if there is such a vertex.
-\pause
+ 
 \item Delete all unmarked vertices out of $X$. 
-\pause
+ 
 \item Add marked vertices to $G'$. 
 
 \end{itemize}
@@ -505,25 +483,25 @@ is $\mathcal{O}(min|X|^q)$.
 
 \begin{frame}{Proof-continue}
 Proof of the equivalency: 
-\pause
+ 
 \begin{itemize}
 
 \item Proper $q$-coloring $f'$ of $G'$ $\longrightarrow$ proper partial $q$-coloring $f$ of $G[X]$ 
 and $f$ can be extended to the rest of $G$.
-\pause
+ 
 \item The other direction is obvious.
 
 
 \end{itemize}
-\pause
+ 
 We represent the instance $G'$ in $\mathcal{O}(|X|^q) = \mathcal{O}(k^q)$ bits.
-\pause
+ 
 \begin{itemize}
 \item Store adjacency matrix of $G'[X]$ in exactly $k^2$ bits. 
-\pause
+ 
 \item Then for each subset $S$ of $X$ of size $q$ (they are less than $k^q$) store exactly one bit. 
 \end{itemize}
-\pause
+ 
 The run time of the algorithm is less than $k^2 + k^q$.
 \end{frame}
 
@@ -534,14 +512,14 @@ The run time of the algorithm is less than $k^2 + k^q$.
 \SetAlgoLined
 \DontPrintSemicolon
   \caption{Kernelization of vertex coloring by using vertex cover}
-\pause
+ 
 \STATE Find exact minimum vertex cover\\
-\pause
+ 
 \STATE Iterate all vertices outside of vertex cover\\
-\pause
+ 
 \STATE If the vertex has $3$ distinct neighbors in vertex cover and it wasn't
 visited yet, then mark it\\
-\pause
+ 
 \STATE Delete all unmarked vertices outside of vertex cover\\
 \end{algorithmic}
 \end{algorithm}
@@ -549,7 +527,7 @@ visited yet, then mark it\\
 
 
 \begin{frame}{Minimum Vertex Cover}
-\pause
+ 
 \begin{align*}
 &minimize \; \;\; \; \sum_{v\in V}X_v \\
 &subject\; to \;\;\; \; X_u + X_v  \geq 1 , \qquad \\
@@ -562,7 +540,7 @@ visited yet, then mark it\\
 \begin{frame}{Minimum Vertex Cover}
 We can restrict this ILP to maximal cliques inequality:
 
-\pause
+ 
 \begin{align*}
 &minimize \; \;\; \; \sum_{v\in V}X_v\\
 &subject\; to \;\;\; \; X_u + X_v  \geq 1 ,\\
@@ -577,19 +555,17 @@ We can restrict this ILP to maximal cliques inequality:
 \begin{frame}{Minimum Vertex Cover}
 Every edge is also a clique:
 
-\pause
+ 
 \begin{align*}
 &minimize \; \;\; \; \sum_{v\in V}X_v\\
 &subject\; to \;\;\; \; \sum_{v\in K_n}x_v \geq n - 1\\
 & \qquad\qquad \qquad\qquad for\; every\; maximal\; clique\; K_n\; in\; the\; graph\\
 &and	\qquad\qquad	 \forall v, X_v\in \{0,1\}
 \end{align*}
-\pause
+
 Solve ILP for vertex cover:
-\pause
 \begin{itemize}
 \item Make a model with AMPL for vertex cover restricted by maximal cliques.
-\pause
 \item Solving it with CPLEX on some samples.
 \end{itemize}
 
@@ -655,7 +631,7 @@ This graph has $11$ vertices and $20$ edges and is known to be $4$-colorable:
 \begin{frame}{Step 1}
 
 Exact minimum vertex cover: $X = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_{11}\}$ vs. $2$-approximate: $Y = \{v_1 , v_2 , v_3 , v_4 , v_5 , v_6 , v_8 , v_9 , v_{10} , v_{11}\}$.
-\pause
+ 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
 \node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v1) at (0,0) {$v_1$};
@@ -742,7 +718,7 @@ $\{v_1 , v_2 , v_3 , v_4 , v_5 , v_{11}\}$:
 \begin{frame}{Coloring}
 
 This kernel can be colored with $3$ and therefore with $4$ colors.
-
+ 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
 \node[circle,fill=red,inner sep=1pt,minimum size=1mm] (v1) at (0,0) {$v_1$};
@@ -760,8 +736,9 @@ This kernel can be colored with $3$ and therefore with $4$ colors.
 
 \end{frame}
 
+ 
 \begin{frame}{Another Steps 3 and 4}
-For $q = 3$, and the vertex cover $X$,
+For $q = 3$, and the vertex cover $X$, mark these vertices: $\{v_6, v_7, v_8, v_9, v_{10}\}$:
 \pause
 \begin{wrapfigure}{l}{4cm}
 \begin{tikzpicture}[scale=0.5]
@@ -784,7 +761,7 @@ For $q = 3$, and the vertex cover $X$,
 \draw (v9)--(v11)--(v6);
 \draw (v4)--(v5)--(v8);
 \end{tikzpicture}
- mark these vertices: $\{v_6, v_7, v_8, v_9, v_{10}\}$
+
 \end{wrapfigure}
 
 \begin{itemize}
@@ -800,7 +777,6 @@ For $q = 3$, and the vertex cover $X$,
 \item $v_{10}$ has neighbors: $\{v_4 , v_3 , v_{11}\}$ 
 \end{itemize}
 \end{frame}
-
 
 \begin{comment}
 To prove this theorem, it is enough to prove it for $k = 3$.
@@ -1016,10 +992,10 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \begin{itemize}
 
 \item DSATUR is a graph coloring algorithm created by Daniel Br\'elaz in 1979. 
-\pause
+ 
 \item The run time for the heuristic algorithm DSATUR could be $\mathcal{O}(m \log n)$, for a graph with $n$ vertices and $m$ edges.
 \end{itemize}
-\pause
+ 
 \begin{definition}
 Let $G$ be a simple and partially colored graph. The saturation degree of a vertex is the number of different colors to which it is adjacent (colored vertices).
 \end{definition}
@@ -1032,18 +1008,18 @@ Let $G$ be a simple and partially colored graph. The saturation degree of a vert
 \SetAlgoLined
 \DontPrintSemicolon
   \caption{DSATUR (so called because it uses saturation degree)}
-\pause
+ 
 \STATE Arrange the vertices by decreasing order of degrees.\\
-\pause
+ 
 \STATE Color a vertex of maximal degree with color $1$.\\
-\pause
+ 
 \STATE Choose a vertex with a maximal saturation degree. If there is an 
   equality, break the tie by choosing any vertex of maximal degree in the uncolored
 subgraph.\\
-\pause
+ 
 \STATE Color the chosen vertex with the least possible (lowest numbered)
 color.\\
-\pause
+ 
 \STATE If all the vertices are colored, stop. Otherwise, return to step 3.\\
 \end{algorithmic}
 \end{algorithm}
@@ -1060,16 +1036,20 @@ color.\\
   every join/.style={arrow},
   node distance=0.6cm
   ]
-\node (start) [startstop,on chain,join] {Start};
-%\node (in1) [dec,on chain] {Is the input valid?};
-\node (out1) [process,on chain,join] {$k = 2$, $q = n$\\ $U_1=\emptyset$, $l = 1$\\$L_1=1$, $x_1\leftarrow c_1$};
-\node (out2) [process,on chain,join] {Model of Vehicle};
-\node (out3) [process,on chain,join] {Body Type};
-%\draw[arrow] (in1.east) -- node[auto] {No} ++(20pt,0pt) |- (start.east);
-%\draw[arrow] (start) -- node[left] {Yes} (in1);
+\node (start) [startstop] {Start};
+%\node (in1) [test,on chain] {Is the input valid?};
+\node (out1) [process] {$k = 2$, $q = n$\\ $U_1=\emptyset$, $l = 1$\\$L_1=1$, $x_1\leftarrow c_1$};
+\node (out2) [process] {determine};
+\node (out3) [process,left of=out2] {$k=j-1$};
+%\draw[arrow] (out3.east) -- node[auto] |- (start.east);
+\draw[arrow] (start) -- (out1);
 \end{tikzpicture}
 \end{frame}
+
 \end{comment}
+
+
+
 
 \begin{frame}{Randall-Brown's Modified Algorithm}
 %\newgeometry{left=1in,right=1.2in,top=1in,bottom=1in}
@@ -1078,32 +1058,32 @@ color.\\
 {\tiny  \item Find a maximal clique $K$. Let dimension of clique is $w$. By using DSATUR
 beginning with this clique, find an initial coloration with $r$ colors (an
 upper bound) and a rank (coloration) order of the vertices. If $w = r$ , stop.\\
-\pause
+ 
 \item  Color the vertices of the clique $K$ with $1, 2, . . . w$ successively. For each
 vertex $v$ in $G$ let $U(v) \in \{1, 2, . . . r + 1\}$ is the set of colors which can color
 $v$. For each vertex $x_k$ out of the clique, let $U(x_k) = U(x_k) - j$ where $j$ is
 the color of a vertex in $K$ which is adjacent to $x_k$.\\
-\pause
+ 
 \item  Let $k = w + 1$ and $q = r$.\newline
 $U(x_k)$ is upper-limited by color $q - 1$ and each vertex is limited by the color
 with the same cardinality as its rank). Color $x_k$ with the least possible
 color and remove this color from $U(x_k)$ and the color list of all vertices
 which are adjacent to $x_k$ , until there is a modification of the $x_k$ color.
-\pause
+ 
 \item Let $k = k + 1$ and determine $U(x_k)$.\\
-\pause
+ 
 \item  If $U(x_k) = \emptyset$ go to step 10. Otherwise let $i$ be the least color of $U(x_k)$ and
 color $x_k$ with $i$ and $U(x_k) = U(x_k) - i$ then remove this color from the
 color set of all vertices adjacent to $x_k$ (with greater rank) until there is a
 modification of $x_k$ color. If $i \geq q$ go to step 8.\\
-\pause
+ 
 \item  If $k = n$ , let $q = L$ where $L$ is the number of colors used for this coloration
 and go to step 7, otherwise go to step 4.\\
-\pause
+ 
 \item  If $q = w$, stop. Otherwise , let $x_j$ be the $q$-colored vertex with minimal
 rank. If the rank of $x_j$ is equal to $w + 1$ , stop, otherwise let $k = j - 1$ and
 go to step 5.\\
-\pause
+ 
 \item  If $k = w + 1$ stop. Otherwise, label all unlabeled vertices which have the
 following properties:
 \begin{enumerate}[(i)]
@@ -1117,16 +1097,17 @@ to $k$.}
 \end{enumerate}
 Now let $\nu = k$ . For those vertices are labeled with $k$, if we obtain the rank
 $k$ or more in a partial coloration, the label should be removed.\\
-\pause
 
+ 
 \item  Let $k = t$ where $t$ is the maximal rank of labeled vertices, which have rank $< k$. For $k < i \leq \nu$ , $U(x_i)$ is the set of colors defind in step 3. Go to step 5.\\
-\pause
 
+ 
 \item  If none of the colors is possible for $x_k$ (all are tested), then backtracking
 should be done. For this go to step 8.\\}
 \end{enumerate}
 
 \end{frame}
+
 
 \begin{comment}
 \begin{frame}[fragile]{AMPL Model for vertex cover restricted to maximal cliques}
@@ -1152,6 +1133,7 @@ sum {(a, b) in Q: a=c} x[b] >= card{(a,b) in Q: a=c}-1;
 \end{comment}
 
 \begin{frame}
+
 \begin{center}
 
 \includegraphics[page=1,width=0.8\textwidth]{table1.pdf}
@@ -1169,12 +1151,12 @@ sum {(a, b) in Q: a=c} x[b] >= card{(a,b) in Q: a=c}-1;
 \begin{frame}{Conclusion}
 \begin{itemize}
 \item Summary
-\pause
+ 
 \item Future Work
-\pause
 \begin{itemize}
+ 
 \item Which kind of graphs and why
-\pause
+ 
 \item probable to identify some indexes in the graph and relate performance of kernelization to them.
 \end{itemize}
 \end{itemize}
