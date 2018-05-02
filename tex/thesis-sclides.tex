@@ -2,7 +2,9 @@
 \usepackage{wrapfig}
 \usepackage{tikz}
 
-
+\usepackage{caption}
+\DeclareCaptionLabelFormat{algnonumber}{Algorithm}
+\captionsetup[algorithm]{labelformat=algnonumber}
 \usetikzlibrary{shapes.geometric, arrows,chains}
 
 \tikzset{
@@ -1021,8 +1023,27 @@ Now, for each clause $C_j$, we connect its correspondence OR-Gadget to vertex $F
 \end{itemize}
 \pause
 \begin{definition}
-Let $G$ be a simple and partially colored graph. The saturation degree of a vertex is the number of different colors to which it is adjacent (colored vertices).
+Let $G$ be a simple and partially colored graph. The \color{red} saturation degree \color{black} of a vertex is the number of different colors used for its neighbours.
 \end{definition}
+\pause
+\begin{example}
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+\node[circle,fill=black,inner sep=0.5pt,,minimum size=1mm] (v1) at (0,0) {};
+\node[circle,fill=blue,inner sep=0.5pt,minimum size=1mm] (v2) at (1,-1) {};
+\node[circle,fill=green,inner sep=0.5pt,minimum size=1mm] (v3) at (-1,-1) {};
+\node[circle,fill=blue,inner sep=0.5pt,minimum size=1mm] (v4) at (-1,1) {};
+\node[circle,fill=yellow,inner sep=0.5pt,minimum size=1mm] (v5) at (1,1) {};
+\node[circle,fill=red,inner sep=0.5pt,minimum size=1mm] (v6) at (-1,0) {};
+
+
+\draw (v4)--(v1)--(v2);
+\draw (v3)--(v1)--(v5);
+\draw (v6)--(v1);
+\end{tikzpicture}
+\end{center}
+\end{example}
+
 \end{frame}
 
 \begin{frame}{DSATUR-Algorithm}
@@ -1049,6 +1070,48 @@ color.\\
 \end{algorithm}
 \end{frame}
 
+\begin{frame}{Randall-Brown's Modified Algorithm}
+\pause
+\begin{itemize}
+{\small 
+\item We start from maximal clique and DSATUR:
+
+\pause
+Find a maximal clique $K$.  By using DSATUR beginning with this clique, find an initial coloration with $r$ colors (an
+upper bound) and a rank (coloration) order of the vertices. 
+
+\pause
+Let $q$ is the best number of colors till now, at first $q = r$.
+
+\pause
+We determine a possible color set for each vertex.
+\pause
+\item We have some limitation that cause the faster pruning:
+\pause
+\begin{itemize}
+\item The number of possible colors for each vertex is limited by $q-1$
+\pause
+\item Each vertex is limited by the color with the same cardinality as its rank
+\end{itemize}
+}
+\end{itemize}
+\pause
+{\small We color each vertex with the least possible color, until
+\pause
+\begin{itemize}
+\item One vertex has no possible color, then we should do backtracking.
+\pause
+\item If the color of a vertex is $i$ and $i\geq q$.
+\pause
+\item If a vertex is colored by the color greater than its rank.
+
+\pause
+In two recent situations, it means that we had a better coloration earlier or we have no possible color and we should do the backtracking.
+\end{itemize}
+}
+\end{frame}
+
+
 \begin{comment}
 \begin{frame}{Randall-Brown's Modified Algorithm}
 
@@ -1069,7 +1132,7 @@ color.\\
 %\draw[arrow] (start) -- node[left] {Yes} (in1);
 \end{tikzpicture}
 \end{frame}
-\end{comment}
+
 
 \begin{frame}{Randall-Brown's Modified Algorithm}
 %\newgeometry{left=1in,right=1.2in,top=1in,bottom=1in}
@@ -1089,21 +1152,21 @@ $U(x_k)$ is upper-limited by color $q - 1$ and each vertex is limited by the col
 with the same cardinality as its rank). Color $x_k$ with the least possible
 color and remove this color from $U(x_k)$ and the color list of all vertices
 which are adjacent to $x_k$ , until there is a modification of the $x_k$ color.
-\pause
+
 \item Let $k = k + 1$ and determine $U(x_k)$.\\
-\pause
+
 \item  If $U(x_k) = \emptyset$ go to step 10. Otherwise let $i$ be the least color of $U(x_k)$ and
 color $x_k$ with $i$ and $U(x_k) = U(x_k) - i$ then remove this color from the
 color set of all vertices adjacent to $x_k$ (with greater rank) until there is a
 modification of $x_k$ color. If $i \geq q$ go to step 8.\\
-\pause
+
 \item  If $k = n$ , let $q = L$ where $L$ is the number of colors used for this coloration
 and go to step 7, otherwise go to step 4.\\
-\pause
+
 \item  If $q = w$, stop. Otherwise , let $x_j$ be the $q$-colored vertex with minimal
 rank. If the rank of $x_j$ is equal to $w + 1$ , stop, otherwise let $k = j - 1$ and
 go to step 5.\\
-\pause
+
 \item  If $k = w + 1$ stop. Otherwise, label all unlabeled vertices which have the
 following properties:
 \begin{enumerate}[(i)]
@@ -1117,10 +1180,10 @@ to $k$.}
 \end{enumerate}
 Now let $\nu = k$ . For those vertices are labeled with $k$, if we obtain the rank
 $k$ or more in a partial coloration, the label should be removed.\\
-\pause
+
 
 \item  Let $k = t$ where $t$ is the maximal rank of labeled vertices, which have rank $< k$. For $k < i \leq \nu$ , $U(x_i)$ is the set of colors defind in step 3. Go to step 5.\\
-\pause
+
 
 \item  If none of the colors is possible for $x_k$ (all are tested), then backtracking
 should be done. For this go to step 8.\\}
@@ -1128,7 +1191,6 @@ should be done. For this go to step 8.\\}
 
 \end{frame}
 
-\begin{comment}
 \begin{frame}[fragile]{AMPL Model for vertex cover restricted to maximal cliques}
 
 
